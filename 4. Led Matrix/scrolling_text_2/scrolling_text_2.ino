@@ -1,0 +1,640 @@
+#include <LedControl.h>
+
+int DIN = 12;
+int CS =  11;
+int CLK = 10;
+LedControl lc=LedControl(DIN,CLK,CS,0);
+
+void setup(){
+ lc.shutdown(0,false);       //The MAX72XX is in power-saving mode on startup
+ lc.setIntensity(0,03);      // Set the brightness to maximum value
+ lc.clearDisplay(0);         // and clear the display
+}
+
+void loop(){ 
+  int i;
+ byte s[8]={0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+ printByte(s);
+  delay(250);
+  for(i=7;i>0;i--)//T
+s[i]=s[i-1];
+s[0]=0x40;
+printByte(s);
+  delay(250);
+  for(i=7;i>0;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250); 
+  for(i=7;i>0;i--)
+s[i]=s[i-1];
+s[0]=0x40;
+printByte(s);
+  delay(250);
+  for(i=7;i>0;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);  
+  for(i=7;i>0;i--)//E
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250); 
+  for(i=7;i>0;i--)
+s[i]=s[i-1];
+s[0]=0x54;
+printByte(s);
+  delay(250); 
+  for(i=7;i>0;i--)
+s[i]=s[i-1];
+s[0]=0x44;
+printByte(s);
+  delay(250); 
+  for(i=7;i>0;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250); 
+printByte(s);
+  delay(250);
+for(i=7;i>0;i--)//A
+s[i]=s[i-1];
+s[0]=0x1C;
+printByte(s);
+  delay(250);
+  for(i=7;i>0;i--)
+s[i]=s[i-1];
+s[0]=0x28;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x48;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x28;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x1C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//M
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x20;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x10;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x20;
+printByte(s);
+  delay(250);
+    for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)//R
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x50;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x6C;
+printByte(s);
+ for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);//O
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x44;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);//B
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x54;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x6C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+ for(i=7;i>=1;i--)//O
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x44;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//L
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x04;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x04;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+    for(i=7;i>=1;i--)//U
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x04;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//T
+s[i]=s[i-1];
+s[0]=0x40;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x40;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//I
+s[i]=s[i-1];
+s[0]=0x44;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x44;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//O
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x44;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//N
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x20;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x10;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//W
+s[i]=s[i-1];
+ s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x08;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x10;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x08;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//E
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x54;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x44;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//L
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x04;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x04;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//c
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x44;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x44;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)//O
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x44;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//M
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x20;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x10;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x20;
+printByte(s);
+  delay(250);
+    for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+    for(i=7;i>=1;i--)//E
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x54;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x44;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//S
+s[i]=s[i-1];
+s[0]=0x74;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x54;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x5C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//Y
+s[i]=s[i-1];
+s[0]=0x60;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x1C;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x60;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//O
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x44;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)//U
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x04;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x7C;
+printByte(s);
+  delay(250);
+   for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+  for(i=7;i>=1;i--)
+s[i]=s[i-1];
+s[0]=0x00;
+printByte(s);
+  delay(250);
+lc.clearDisplay(0);
+delay(2000);
+}
+void printByte(byte character [])
+{
+  int i = 0;
+  for(i=0;i<8;i++)
+  {
+    lc.setRow(0,i,character[i]);
+  }
+}

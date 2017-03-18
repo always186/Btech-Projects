@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# ibles-production: http://ogp.me/ns/fb/ibles-production#">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta charset="utf-8"><title>
+	Control DC and stepper motors with L298N Dual Motor Controller Modules and Arduino - All 
+</title><meta property="fb:app_id" content="140028286058792"><meta property="og:site_name" content="Instructables.com"><link rel="shortcut icon" type="image/x-icon" href="http://www.instructables.com/intl_static/img/siteassets/favicon.ico"><script src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/pinit.js" data-pin-hover="true" async="" type="text/javascript"></script><script src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/all.js" async="" id="facebook-jssdk"></script><script src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/ls-instructables.js" async=""></script><script type="text/javascript">var readCookie=function(a,b){return(b=RegExp('(^|; )'+encodeURIComponent(a)+'=([^;]*)').exec(document.cookie))?decodeURIComponent(b[2]):null;};window.adDependenciesQueue=window.adDependenciesQueue||[];function renderAdSlotAsync(a){var b=function(){googletag.cmd.push(function(){if(typeof window.index_headertag_lightspeed==="undefined")googletag.display(a);});};if(!window.adDependenciesQueue.length)b();else{if(!window.adDependenciesPromise)window.adDependenciesPromise=Deferred.when.apply(Deferred,adDependenciesQueue);window.adDependenciesPromise.always(b);}}(function(a){function b(a){return Object.prototype.toString.call(a)==='[object Array]';}function c(a,c){if(b(a))for(var d=0;d<a.length;d++)c(a[d]);else c(a);}function d(a){var c='pending',d=[],e=[],f=null,g={done:function(){for(var a=0;a<arguments.length;a++){if(!arguments[a])continue;if(b(arguments[a])){var e=arguments[a];for(var g=0;g<e.length;g++){if(c==='resolved')e[g].apply(this,f);d.push(e[g]);}}else{if(c==='resolved')arguments[a].apply(this,f);d.push(arguments[a]);}}return this;},fail:function(){for(var a=0;a<arguments.length;a++){if(!arguments[a])continue;if(b(arguments[a])){var d=arguments[a];for(var g=0;g<d.length;g++){if(c==='rejected')d[g].apply(this,f);e.push(d[g]);}}else{if(c==='rejected')arguments[a].apply(this,f);e.push(arguments[a]);}}return this;},always:function(){return this.done.apply(this,arguments).fail.apply(this,arguments);},then:function(){if(arguments.length>1&&arguments[1])this.fail(arguments[1]);if(arguments.length>0&&arguments[0])this.done(arguments[0]);},promise:function(a){if(a==null)return g;else{for(var b in g)a[b]=g[b];return a;}},state:function(){return c;},debug:function(){console.log('[debug]',d,e,c);},isRejected:function(){return c==='rejected';},isResolved:function(){return c==='resolved';}},h={resolveWith:function(a){if(c==='pending'){c='resolved';var b=f=(arguments.length>1)?arguments[1]:[];for(var e=0;e<d.length;e++)d[e].apply(a,b);}return this;},rejectWith:function(a){if(c==='pending'){c='rejected';var b=f=(arguments.length>1)?arguments[1]:[];for(var d=0;d<e.length;d++)e[d].apply(a,b);}return this;},resolve:function(){return this.resolveWith(this,arguments);},reject:function(){return this.rejectWith(this,arguments);}};var i=g.promise(h);if(a)a.apply(i,[i]);return i;}d.when=function(){if(arguments.length<2){var a=arguments.length?arguments[0]:undefined;if(a&&(typeof a.isResolved==='function'&&typeof a.isRejected==='function'))return a.promise();else return d().resolve(a).promise();}else return(function(a){var b=d(),c=a.length,e=0,f=new Array(c);for(var g=0;g<a.length;g++)(function(d){var g=null;if(a[d].done){a[d].done(function(){f[d]=(arguments.length<2)?arguments[0]:arguments;if(++e==c)b.resolve.apply(b,f);}).fail(function(){b.reject(arguments);});}else{g=a[d];a[d]=new Deferred();a[d].done(function(){f[d]=(arguments.length<2)?arguments[0]:arguments;if(++e==c)b.resolve.apply(b,f);}).fail(function(){b.reject(arguments);}).resolve(g);}})(g);return b.promise();})(arguments);};a.Deferred=d;})(window);function fetchScript(a,b){var c=document.createElement('script'),d="https:"==document.location.protocol,e=false;c.async=true;c.src=(a.indexOf('//')==0)?((d?"https:":"http:")+a):a;c.onload=c.onreadystatechange=function(){if(!e&&(!this.readyState||this.readyState=='loaded'||this.readyState=='complete')){e=true;if(typeof b==='function')b.call(this);c.onload=c.onreadystatechange=null;};};var f=document.getElementsByTagName("script")[0];f.parentNode.insertBefore(c,f);};(function(a,b){"use strict";function c(){}function d(a,b){if(a){typeof a=="object"&&(a=[].slice.call(a));for(var c=0,d=a.length;c<d;c++)b.call(a,a[c],c);}}function e(a,c){var d=Object.prototype.toString.call(c).slice(8,-1);return c!==b&&c!==null&&d===a;}function f(a){return e("Function",a);}function g(a){return e("Array",a);}function h(a){var b=a.split("/"),c=b[b.length-1],d=c.indexOf("?");return d!==-1?c.substring(0,d):c;}function i(a){(a=a||c,a._done)||(a(),a._done=1);}function j(a,b,d,e){var f=typeof a=="object"?a:{test:a,success:!b?!1:g(b)?b:[b],failure:!d?!1:g(d)?d:[d],callback:e||c},h=!!f.test;return h&&!!f.success?(f.success.push(f.callback),E.load.apply(null,f.success)):h||!f.failure?e():(f.failure.push(f.callback),E.load.apply(null,f.failure)),E;}function k(a){var b={},c,d;if(typeof a=="object")for(c in a)!a[c]||(b={name:c,url:a[c]});else b={name:h(a),url:a};return(d=A[b.name],d&&d.url===b.url)?d:(A[b.name]=b,b);}function l(a){a=a||A;for(var b in a)if(a.hasOwnProperty(b)&&a[b].state!==I)return !1;return !0;}function m(a){a.state=G;d(a.onpreload,function(a){a.call();});}function n(a){a.state===b&&(a.state=F,a.onpreload=[],s({url:a.url,type:"cache"},function(){m(a);}));}function o(){var a=arguments,b=a[a.length-1],c=[].slice.call(a,1),e=c[0];return(f(b)||(b=null),g(a[0]))?(a[0].push(b),E.load.apply(null,a[0]),E):(e?(d(c,function(a){f(a)||!a||n(k(a));}),q(k(a[0]),f(e)?e:function(){E.load.apply(null,c);})):q(k(a[0])),E);}function p(){var a=arguments,b=a[a.length-1],c={};return(f(b)||(b=null),g(a[0]))?(a[0].push(b),E.load.apply(null,a[0]),E):(d(a,function(a){a!==b&&(a=k(a),c[a.name]=a);}),d(a,function(a){a!==b&&(a=k(a),q(a,function(){l(c)&&i(b);}));}),E);}function q(a,b){if(b=b||c,a.state===I){b();return;}if(a.state===H){E.ready(a.name,b);return;}if(a.state===F){a.onpreload.push(function(){q(a,b);});return;}a.state=H;s(a,function(){a.state=I;b();d(z[a.name],function(a){i(a);});C&&l()&&d(z.ALL,function(a){i(a);});});}function r(a){a=a||"";var b=a.split("?")[0].split(".");return b[b.length-1].toLowerCase();}function s(b,d){function e(b){b=b||a.event;h.onload=h.onreadystatechange=h.onerror=null;d();}function f(c){c=c||a.event;(c.type==="load"||/loaded|complete/.test(h.readyState)&&(!x.documentMode||x.documentMode<9))&&(a.clearTimeout(b.errorTimeout),a.clearTimeout(b.cssTimeout),h.onload=h.onreadystatechange=h.onerror=null,d());}function g(){if(b.state!==I&&b.cssRetries<=20){for(var c=0,d=x.styleSheets.length;c<d;c++)if(x.styleSheets[c].href===h.href){f({type:"load"});return;}b.cssRetries++;b.cssTimeout=a.setTimeout(g,250);}}var h,i,j;d=d||c;i=r(b.url);i==="css"?(h=x.createElement("link"),h.type="text/"+(b.type||"css"),h.rel="stylesheet",h.href=b.url,b.cssRetries=0,b.cssTimeout=a.setTimeout(g,500)):(h=x.createElement("script"),h.type="text/"+(b.type||"javascript"),h.src=b.url);h.onload=h.onreadystatechange=f;h.onerror=e;h.async=!1;h.defer=!1;b.errorTimeout=a.setTimeout(function(){e({type:"timeout"});},7e3);j=x.head||x.getElementsByTagName("head")[0];j.insertBefore(h,j.lastChild);}function t(){for(var a,b=x.getElementsByTagName("script"),c=0,d=b.length;c<d;c++)if(a=b[c].getAttribute("data-headjs-load"),!!a){E.load(a);return;}}function u(a,b){var c,e,h;return a===x?(C?i(b):y.push(b),E):(f(a)&&(b=a,a="ALL"),g(a))?(c={},d(a,function(a){c[a]=A[a];E.ready(a,function(){l(c)&&i(b);});}),E):typeof a!="string"||!f(b)?E:(e=A[a],e&&e.state===I||a==="ALL"&&l()&&C)?(i(b),E):(h=z[a],h?h.push(b):h=z[a]=[b],E);}function v(){if(!x.body){a.clearTimeout(E.readyTimeout);E.readyTimeout=a.setTimeout(v,50);return;}C||(C=!0,t(),d(y,function(a){i(a);}));}function w(){x.addEventListener?(x.removeEventListener("DOMContentLoaded",w,!1),v()):x.readyState==="complete"&&(x.detachEvent("onreadystatechange",w),v());}var x=a.document,y=[],z={},A={},B="async" in x.createElement("script")||"MozAppearance" in x.documentElement.style||a.opera,C,D=a.head_conf&&a.head_conf.head||"head",E=a[D]=a[D]||function(){E.ready.apply(null,arguments);},F=1,G=2,H=3,I=4,J;if(x.readyState==="complete")v();else if(x.addEventListener)x.addEventListener("DOMContentLoaded",w,!1),a.addEventListener("load",v,!1);else{x.attachEvent("onreadystatechange",w);a.attachEvent("onload",v);J=!1;try{J=!a.frameElement&&x.documentElement;}catch(K){}J&&J.doScroll&&function L(){if(!C){try{J.doScroll("left");}catch(b){a.clearTimeout(E.readyTimeout);E.readyTimeout=a.setTimeout(L,50);return;}v();}}();}E.load=E.js=B?p:o;E.test=j;E.ready=u;E.ready(x,function(){l()&&d(z.ALL,function(a){i(a);});E.feature&&E.feature("domloaded",!0);});})(window);window.Ibles=window.Ibles||{};Ibles.pageContext=window.Ibles.pageContext||{};Ibles.JST=window.Ibles.JST||{};Ibles.sessionReady=new Deferred();Ibles.assetsLoaded=new Deferred();window.PAGE_SCRIPTS=window.PAGE_SCRIPTS||[];window.loadJS=function(){var a=arguments,b=a[a.length-1],c=[].slice.call(a);if(typeof b=="function")c.pop();else b=null;if(a[0].constructor===Array){a[0].push(b);loadJS.apply(null,a[0]);return;}if(!b&&!c.length)return;if(c.length)PAGE_SCRIPTS=PAGE_SCRIPTS.concat(c);if(b)head.ready(b);};window.sessionReady=function(){var a=arguments,b=a[a.length-1],c=[].slice.call(a);if(typeof b=="function")c.pop();else b=null;if(a[0].constructor===Array){a[0].push(b);sessionReady.apply(null,a[0]);return;}var d=[].slice.call(c);Deferred.when.apply(Deferred,[Ibles.sessionReady,Ibles.assetsLoaded]).done(function(a){if(!b)head.load.apply(null,c);else{var d=function(){setTimeout(function(){b(a);},0);};if(!c.length)d();else head.load(c,d);}});PAGE_SCRIPTS=PAGE_SCRIPTS.concat(d);};</script><!-- headertag --><script type="text/javascript">
+    var headertagMobile = false;
+    var headertagDeferred = new Deferred();
+    adDependenciesQueue.push(headertagDeferred);
+    fetchScript("http://js.indexww.com/ht/ls-instructables.js", function(){
+        headertagDeferred.resolve();
+    });
+</script><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/base-desktop-b757e620.css" type="text/css"><link href="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/css.css" rel="stylesheet" type="text/css"><script type="text/javascript">
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+fetchScript('//www.googletagservices.com/tag/js/gpt.js');   
+</script><script type="text/javascript">
+    var sharethroughDeferred = new Deferred();
+    adDependenciesQueue.push(sharethroughDeferred);
+    fetchScript("http://native.sharethrough.com/assets/sfp.js", function(){
+        sharethroughDeferred.resolve();
+    });
+</script><script type="text/javascript">
+        googletag.cmd.push(function() {
+            var slots = [];
+            
+            	
+                    if (document.cookie.indexOf('hideAds') === -1) {
+                        slots.push(googletag.defineSlot("/1022072/technology_leaderboard", [[728, 90], [970, 200], [970, 300], [970, 250]], "gpt-ad-leaderboard").addService(googletag.pubads()));
+                    }
+            	
+            
+
+            
+if (document.cookie.indexOf('hideAds') === -1) {
+    slots.push(googletag.defineSlot("/1022072/technology_med_rectangle", [[300, 250],[300, 600],[160, 600],[300, 500]], "gpt-ad-med-rectangle")
+            .addService(googletag.pubads()));
+    slots.push(googletag.defineSlot("/1022072/brand_technology_med_rectangle", [[300, 250], [300, 600], [160, 600], [300, 601]], "gpt-ad-sidebar-brand")
+            .addService(googletag.pubads()));
+    if ((document.cookie.indexOf('authy') === -1) || (document.cookie.indexOf('adminUser') >= 0)) {
+        // only show the following slots for unauthenticated users
+        
+            
+        slots.push(googletag.defineSlot('/1022072/Native_project_page_middle_645_250', [[645, 250]], 'gpt-ad-native-middle')
+                .addService(googletag.pubads()));
+            
+        
+        slots.push(googletag.defineSlot("/1022072/technology_inline_med_rectangle", [300, 250], "gpt-ad-inline-med-1")
+                .addService(googletag.pubads()));
+        slots.push(googletag.defineSlot("/1022072/rightside_inline_med_rectangle", [300, 250], "gpt-ad-inline-med-2")
+                .addService(googletag.pubads()));
+        slots.push(googletag.defineSlot('/1022072/Native_project_page_bottom_645_250', [[1,1],[645,250]], 'gpt-ad-native-bottom')
+                .addService(googletag.pubads()));
+    }
+
+    if (typeof index_headertag_lightspeed !== 'undefined') {
+        var slotMap = {};
+        for (var i = 0; i < slots.length; i++) {
+            slotMap[slots[i].getSlotElementId()] = slots[i];
+        }
+        index_headertag_lightspeed.set_slot_targeting(slotMap);
+    }
+
+    googletag.pubads().setTargeting("kvrefd", "instructables.com");
+    googletag.pubads().setTargeting("content", "Step by St");
+    googletag.pubads().setTargeting("id", "76I2X6RNGG");
+    googletag.pubads().setTargeting("category", "technology");
+    googletag.pubads().setTargeting("channel", "arduino");
+    googletag.pubads().setTargeting("author", "MWZY9PHHVR");
+    googletag.pubads().setTargeting("featured", "false");
+    googletag.pubads().setTargeting("status", "PUBLISHED");
+    
+        
+            googletag.pubads().setTargeting("step", "intro");
+        
+    
+    
+    
+    
+        googletag.pubads().setTargeting("keyword", ["arduino","l298","dc","stepper","motor","tutorial","tronixlabs"]);
+    
+}
+
+
+            googletag.pubads().setTargeting("adtest", "");     
+            googletag.pubads().enableSingleRequest();
+            googletag.pubads().collapseEmptyDivs();
+            googletag.enableServices();
+        });
+    </script><link rel="stylesheet" href="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/ible-279c945c.css" type="text/css"><link rel="amphtml" href="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/?amp_page=true"><link rel="canonical" href="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/"><!-- for andriod app deep links: https://developers.google.com/app-indexing/reference/deeplinks?hl=en --><link rel="alternate" href="android-app://com.adsk.instructables/http/www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/"><meta name="description" content="You don&amp;rsquo;t have to spend a lot of money to control motors with an Arduino or compatible board. After some hunting around we found a neat motor control module based on the L298N H-bridge IC that can allows you to control the speed and direction of two DC motors, or control one bipolar stepper motor with ease.The L298N H-bridge module can be used with motors that have a voltage of between 5 and 35V DC. With the module used in this tutorial, there is also an onboard 5V regulator, so if your supply voltage is up to 12V you can also source 5V from the board. So let&amp;rsquo;s get started!"><meta property="og:type" content="article"><meta property="og:url" content="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/"><meta property="og:image" content="http://cdn.instructables.com/F7D/J0WE/I36LH0ER/F7DJ0WEI36LH0ER.RECT2100.jpg"><meta property="og:image:width" content="499"><meta property="og:image:height" content="416"><meta property="og:title" content=""><meta property="og:description" content="You don&amp;rsquo;t have to spend a lot of money to control motors with an Arduino or compatible board. After some hunting around we found a neat motor control module based on the L298N H-bridge IC that can allows you to control the speed and direction of two DC motors, or control one bipolar stepper motor with ease.The L298N H-bridge module can be used with motors that have a voltage of between 5 and 35V DC. With the module used in this tutorial, there is also an onboard 5V regulator, so if your supply voltage is up to 12V you can also source 5V from the board. So let&amp;rsquo;s get started!"><meta name="twitter:card" content="gallery"><meta name="twitter:site" content="@instructables"><meta name="twitter:url" content="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/"><meta name="twitter:title" content=""><meta name="twitter:image0" content="http://cdn.instructables.com/FRW/G225/I2X6RNGT/FRWG225I2X6RNGT.MEDIUM.jpg"><meta name="twitter:image1" content="http://cdn.instructables.com/F2V/3IT4/I2X6RNGR/F2V3IT4I2X6RNGR.MEDIUM.jpg"><meta name="twitter:image2" content="http://cdn.instructables.com/F8V/3Y64/I2X6RNGM/F8V3Y64I2X6RNGM.MEDIUM.jpg"><meta name="twitter:image3" content="http://cdn.instructables.com/FKR/QNA1/I2X6RNUH/FKRQNA1I2X6RNUH.MEDIUM.jpg"><link rel="stylesheet" type="text/css" href="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/promo_styles_20160728.css"><script src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/base-desktop-bs2-3d8c7330.js" type="text/javascript"></script><script src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/ible-109f704d.js" type="text/javascript"></script><script src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/widgets.js" type="text/javascript"></script><style>
+.course-status{
+display: block;
+position:absolute;
+}
+</style><script src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/redactor_air_instructables.js" type="text/javascript"></script><script src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/redactorInstructables.js" type="text/javascript"></script><script src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/redactor.js" type="text/javascript"></script><link href="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/redactor.css" rel="stylesheet" type="text/css"><link href="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/airmode_styles.css" rel="stylesheet" type="text/css"><style>@media print {#UNIQUE_ID-ghostery {display:none !important}}</style></head><body class="instructable"><div id="gbl-header" class="nopin"><div class="top-bar"><div class="container content-match"><a id="header-robot" title="Instructables Home" href="http://www.instructables.com/"><img nopin="nopin" alt="Instructables" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/header-logo.png"></a><div id="header-search"><form id="header-search-form" class="form-horizontal" action="/howto/" method="get"><div class="control-group"><label class="control-label" for="q">let's make</label><div class="controls"><div class="input-append"><input class="input-medium" name="q" id="q" type="text"><button class="btn" type="button" id="header-search-btn"><i class="bg-icon search"></i></button></div></div></div></form></div><div id="header-nav-container"><div id="explore" class="btn btn-clear header-nav"><a title="Explore" href="http://www.instructables.com/tag/type-id/">Explore </a></div><div id="publish" class="btn btn-clear header-nav"><a title="Make an Instructable" href="http://www.instructables.com/about/create.jsp">Publish</a></div><div id="classes" class="btn btn-clear classes-global-nav"><a title="View Classes" href="http://www.instructables.com/classes/">Classes</a></div></div><div style="display: block;" id="loginMenu" class="pull-right"><a class="login-link" href="http://www.instructables.com/account/login/">Login</a><span class="pipe">|</span><a class="signup-link" href="http://www.instructables.com/account/gopro" data-sourcea="header">Sign Up</a></div><div id="youMenu" class="pull-right"></div></div></div><div class="bottom-bar" id="header-promo-container"><div class="container main content-match"><a class="share-motto" href="#">share what you make</a><ul id="promo-tabs" class="clearfix"><li class="promo-tabs-label">Featured:</li><style>
+img.upgrade-image {
+    width: 280px;
+}
+</style><li class="featured-item adspot-link"><div class="adspot-item"><a class="ad-image" href="http://www.instructables.com/tag/type-id/category-craft/channel-leather/" title="Leather Channel"><span class="promo" id="leather-promo"></span></a><a class="spot-link" href="http://www.instructables.com/tag/type-id/category-craft/channel-leather/" title="Leather Channel">Leather</a></div></li><li class="featured-item adspot-link"><div class="adspot-item"><a class="ad-image" href="http://www.instructables.com/tag/type-id/category-outside/channel-camping/" title="Camping Channel"><span class="promo" id="camping-promo"></span></a><a class="spot-link" href="http://www.instructables.com/tag/type-id/category-outside/channel-camping/" title="Camping Channel">Camping</a></div></li><li class="featured-item adspot-link"><div class="adspot-item"><a class="ad-image" href="http://www.instructables.com/id/intel/" title="Intel IoT"><span class="promo" id="intel-promo"></span></a><a class="spot-link" href="http://www.instructables.com/id/intel/" title="Intel IoT">Intel IoT</a></div></li><li class="featured-item adspot-link"><div class="adspot-item"><a class="ad-image" href="http://www.instructables.com/id/Fusion/" title="Fusion 360"><span class="promo" id="fusion-promo"></span></a><a class="spot-link" href="http://www.instructables.com/id/Fusion/" title="Fusion 360">Fusion 360</a></div></li></ul></div></div><div id="header-menus"><div class="header-menu" id="explore-menu"><img nopin="nopin" class="menu-loading" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/lb_loading.gif" alt="loading"></div><div class="header-menu" id="publish-menu"><div class="menu-content"><div class="publish-video"><iframe id="ytplayer-small" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/iStxkeZlZjc.htm" allowfullscreen="" height="255" width="470"></iframe></div><div class="publish-description"><img nopin="nopin" class="methodImage" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/ible-menu-icon.png" alt="Create an Instructable"><p class="description">With Instructables you can share what you make with the world, and tap into an ever-growing community of creative experts.</p><a class="btn btn-large" href="http://www.instructables.com/about/create.jsp">How it Works  »</a><a class="btn btn-large btn-orange login-required verification-required" data-sourcea="header:new-instructable" data-return-url="/" href="http://www.instructables.com/">New Instructable  »</a></div></div></div></div></div><!-- Do not change classes and ids. Used by sponsored ad javascript in dfp --><div class="aspace-wrap"><div class="aspace container"><div id="aplace"><div id="gpt-ad-leaderboard" class="gpt-ad"><script type="text/javascript">
+                    if (document.cookie.indexOf('hideAds') === -1) {
+                        renderAdSlotAsync('gpt-ad-leaderboard');
+                    }
+                </script></div></div></div></div><div id="instructable-wrapper" class="wrapper" itemscope="" itemtype="http://schema.org/Article"><div style="height: 131px;" class="header-bar"><div id="ible-header" class="sticky-header fixed expanded"><div class="container sticky-header-inner"><div id="ible-header-title-row"><div class="title-bar"><h1 class="title" itemprop="name">Control DC and stepper motors with L298N Dual Motor Controller Modules and Arduino</h1><span class="author"> by <a rel="author" href="http://www.instructables.com/member/tronixlabs/" itemprop="author">tronixlabs</a></span></div><div class="awards-bar"></div></div><div id="ible-header-actions-bar" class="clearfix"><div class="pull-left"><a id="download-pdf-btn-top" data-role-group="pdf" class="btn download-pdf-btn download-pdf disable-preview" data-sourcea="project:downloadPdf:stepAll" data-return-url="/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/?download=pdf" title="Instructables offers this How To as Downloadable PDF to make it easy to print"><i class="bg-icon pdf"></i> Download
+                    </a><div class="btn-group steps-nav"><a class="btn view-all-steps-btn active" title="View All Steps" href="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/"><i class="icon-grid icomoon"></i></a><a class="btn" id="steps-nav-toggle" title="Go To Step">
+                        3 Steps
+                        </a><a class="btn next disabled"><i class="icon-caret-right icomoon"></i></a></div></div><div class="pull-right"><div id="flag-menu" class="btn-group pull-right flag-dropdown disable-preview"><a data-toggle="dropdown" class="btn flag-btn dropdown-toggle"><i class="icon-flag"></i></a><ul class="dropdown-menu pull-right"></ul></div><div class="btn-group pull-right share-btn disable-preview"><a data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-share"></i> Share <span class="caret"></span></a><ul class="dropdown-menu share-menu"><li><a class="facebook-share-button"><i class="facebook-icon share-icon"></i> Facebook</a></li>
+<li><a data-pin-do="buttonPin" href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.instructables.com%2Fid%2FControl-DC-and-stepper-motors-with-L298N-Dual-Moto%2F&amp;media=http://cdn.instructables.com/F7D/J0WE/I36LH0ER/F7DJ0WEI36LH0ER.RECT2100.jpg&amp;description=Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino" data-pin-custom="true"><i class="pinterest-icon share-icon"></i> Pinterest</a></li>
+<li><a href="https://twitter.com/intent/tweet?text=Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino&amp;url=http%3A%2F%2Fwww.instructables.com%2Fid%2FControl-DC-and-stepper-motors-with-L298N-Dual-Moto%2F" target="_blank"><i class="twitter-icon share-icon"></i> Twitter</a></li>
+<li><a class="google-share-button" href="https://plus.google.com/share?url=http%3A%2F%2Fwww.instructables.com%2Fid%2FControl-DC-and-stepper-motors-with-L298N-Dual-Moto%2F"><i class="googleplus-icon share-icon"></i> Google+</a></li>
+<li><a href="http://www.tumblr.com/share?url=http%3A%2F%2Fwww.instructables.com%2Fid%2FControl-DC-and-stepper-motors-with-L298N-Dual-Moto%2F" target="_blank"><i class="tumblr-icon share-icon"></i> Tumblr</a></li>
+<li><a href="mailto:?subject=Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino&amp;body=http%3A%2F%2Fwww.instructables.com%2Fid%2FControl-DC-and-stepper-motors-with-L298N-Dual-Moto%2F" target="" title="Share via Email"><i class="email-icon share-icon"></i> Email</a></li></ul></div><a class="btn pull-right favorite-btn login-required" data-sourcea="project:favorite:stepAll"><i class="icon-favorite"></i><span class="fave-btn-txt">Favorite</span></a><a id="imadeit-btn" class="btn pull-right disable-preview"><i class="bg-icon imadeit"></i>&nbsp; <span>I Made it!</span></a><a class="btn pull-right add-to-collection-btn disable-preview has-spinner"><span class="btn-spinner"><i class="icon-refresh spin-it"></i></span><i class="icon-plus"></i> Collection
+                    </a></div></div></div><div id="ible-steps-nav" class="collapsed"><div class="container"><div class="dropdown-bubble"><a title="Intro: Control DC and stepper motors with L298N Dual Motor Controller Modules and Arduino" href="#intro" class="btn btn-mini jump-to-step-btn" data-stepindex="0">
+                    Intro
+                </a><div class="dropdown-menu step"><div class="image"><a href="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/step0/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FRWG225I2X6RNGT_002.jpg" alt="Control DC and stepper motors with L298N Dual Motor Controller Modules and Arduino"></a></div><div class="description"><h4>Intro: Control DC and stepper motors with L298N Dual Motor Controller Modules and Arduino</h4><p>You
+ don’t have to spend a lot of money to control motors with an Arduino or
+ compatible board. After some hunting around we found a neat motor 
+control ...</p></div></div></div><div class="dropdown-bubble"><a title="Understanding the L298 module connections" href="#step1" class="btn btn-mini jump-to-step-btn" data-stepindex="1">
+                    1
+                </a><div class="dropdown-menu step"><div class="image"><a href="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/step1/Understanding-the-L298-module-connections/"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F2V3IT4I2X6RNGR.jpg" alt="Understanding the L298 module connections"></a></div><div class="description"><h4>Step 1: Understanding the L298 module connections</h4><p>First
+ we’ll run through the connections, then explain how to control DC 
+motors then a stepper motor. At this point, review the connections on 
+the L298N H-bridge module.Consider ...</p></div></div></div><div class="dropdown-bubble"><a title="Controlling DC Motors" href="#step2" class="btn btn-mini jump-to-step-btn" data-stepindex="2">
+                    2
+                </a><div class="dropdown-menu step"><div class="image"><a href="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/step2/Controlling-DC-Motors/"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F8V3Y64I2X6RNGM.jpg" alt="Controlling DC Motors"></a></div><div class="description"><h4>Step 2: Controlling DC Motors</h4><p>To
+ control one or two DC motors is quite easy with the L298N H-bridge 
+module. First connect each motor to the A and B connections on the L298N
+ ...</p></div></div></div><div class="dropdown-bubble"><a title="Controlling a Stepper Motor with Arduino and L298N " href="#step3" class="btn btn-mini jump-to-step-btn" data-stepindex="3">
+                    3
+                </a><div class="dropdown-menu step"><div class="image"><a href="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/step3/Controlling-a-Stepper-Motor-with-Arduino-and-L298N/"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F5OG0BJI2X6RNGU.jpg" alt="Controlling a Stepper Motor with Arduino and L298N "></a></div><div class="description"><h4>Step 3: Controlling a Stepper Motor with Arduino and L298N </h4><p>Stepper
+ motors may appear to be complex, but nothing could be further than the 
+truth. In this example we control a typical NEMA-17 stepper motor that 
+has four ...</p></div></div></div></div></div><div class="sticky-header-toggle" style=""></div></div></div><meta itemprop="headline" content="Control DC and stepper motors with L298N Dual Motor Controller Modules and Arduino"><meta itemprop="image" content="http://cdn.instructables.com/F7D/J0WE/I36LH0ER/F7DJ0WEI36LH0ER.MEDIUM.jpg"><meta itemprop="keywords" content="technology arduino"><meta itemprop="datePublished" content="Nov. 25, 2014, 4:53 a.m."><meta itemprop="interactionCount" content="favorites:199"><meta itemprop="interactionCount" content="views:199"><div id="instructable-container" class="container content-padding"><div id="instructable-content"><div id="instructable-body"><div class="step-container"><a id="intro"></a><div id="photoset-SI41MSHI2X6RNGF" data-item-id="SI41MSHI2X6RNGF" data-item-url="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/" class="photoset"><div style="margin-bottom: 5px;" class="photoset-row cols-1"><div style="width: 100%;" class="photoset-cell image-cell"><div class="photoset-item photoset-image"><a class="photoset-link" data-fancybox-group="photoset-gallery-SI41MSHI2X6RNGF" href="http://www.instructables.com/file/FRWG225I2X6RNGT/" data-fancybox-href="http://cdn.instructables.com/FRW/G225/I2X6RNGT/FRWG225I2X6RNGT.LARGE.jpg"><img data-original="http://cdn.instructables.com/FRW/G225/I2X6RNGT/FRWG225I2X6RNGT.MEDIUM.jpg" alt="Picture of Control DC and stepper motors with L298N Dual Motor Controller Modules and Arduino" data-image-id="FRWG225I2X6RNGT" data-notes="[]" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FRWG225I2X6RNGT.jpg" data-original-image="http://www.instructables.com/files/orig/FRW/G225/I2X6RNGT/FRWG225I2X6RNGT.png" data-large="http://cdn.instructables.com/FRW/G225/I2X6RNGT/FRWG225I2X6RNGT.LARGE.jpg" data-medium="http://cdn.instructables.com/FRW/G225/I2X6RNGT/FRWG225I2X6RNGT.MEDIUM.jpg" data-small="http://cdn.instructables.com/FRW/G225/I2X6RNGT/FRWG225I2X6RNGT.SMALL.jpg" data-orig-height="496" data-orig-width="501" data-pin-no-hover="true"></a></div></div></div><a class="photoset-showmore">Show All  Items<br><i class="icon"></i></a></div><div class="step-body" itemprop="articleBody"><p>You don’t have to spend a lot of money to control motors with an Arduino or compatible board. After some hunting around we <a href="http://tronixlabs.com/robotics/motor-controllers/l298n-dual-motor-controller-module-2a/" rel="nofollow">found a neat motor control module based</a>
+ on the L298N H-bridge IC that can allows you to control the speed and 
+direction of two DC motors, or control one bipolar stepper motor with 
+ease.</p><p>The <a href="http://tronixlabs.com/robotics/motor-controllers/l298n-dual-motor-controller-module-2a/" rel="nofollow">L298N H-bridge module</a>
+ can be used with motors that have a voltage of between 5 and 35V DC. 
+With the module used in this tutorial, there is also an onboard 5V 
+regulator, so if your supply voltage is up to 12V you can also source 5V
+ from the board. </p><p><em>So let’s get started!</em></p></div><div id="gpt-ad-native-middle" class="gpt-ad"><script type="text/javascript">
+                if (document.cookie.indexOf('authy') === -1) {
+                    renderAdSlotAsync('gpt-ad-native-middle');
+                }
+            </script></div></div><div class="step-container"><h2 id="step1" class="step-title">Step 1: Understanding the L298 module connections</h2><div id="photoset-SJAXJGAI2X6RNIK" data-item-id="SJAXJGAI2X6RNIK" data-item-url="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/step1/Understanding-the-L298-module-connections/" class="photoset"><div style="margin-bottom: 5px;" class="photoset-row cols-1"><div style="width: 100%;" class="photoset-cell image-cell"><div class="photoset-item photoset-image"><a class="photoset-link" data-fancybox-group="photoset-gallery-SJAXJGAI2X6RNIK" href="http://www.instructables.com/file/F2V3IT4I2X6RNGR/" data-fancybox-href="http://cdn.instructables.com/F2V/3IT4/I2X6RNGR/F2V3IT4I2X6RNGR.LARGE.jpg"><img data-original="http://cdn.instructables.com/F2V/3IT4/I2X6RNGR/F2V3IT4I2X6RNGR.MEDIUM.jpg" alt="Picture of Understanding the L298 module connections" data-image-id="F2V3IT4I2X6RNGR" data-notes="[]" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F2V3IT4I2X6RNGR_002.jpg" data-original-image="http://www.instructables.com/files/orig/F2V/3IT4/I2X6RNGR/F2V3IT4I2X6RNGR.jpg" data-large="http://cdn.instructables.com/F2V/3IT4/I2X6RNGR/F2V3IT4I2X6RNGR.LARGE.jpg" data-medium="http://cdn.instructables.com/F2V/3IT4/I2X6RNGR/F2V3IT4I2X6RNGR.MEDIUM.jpg" data-small="http://cdn.instructables.com/F2V/3IT4/I2X6RNGR/F2V3IT4I2X6RNGR.SMALL.jpg" data-orig-height="406" data-orig-width="500" data-pin-no-hover="true"></a></div></div></div><a class="photoset-showmore">Show All  Items<br><i class="icon"></i></a></div><div class="step-body"><p>First
+ we’ll run through the connections, then explain how to control DC 
+motors then a stepper motor. At this point, review the connections on 
+the <a href="http://tronixlabs.com/robotics/motor-controllers/l298n-dual-motor-controller-module-2a/" rel="nofollow">L298N H-bridge module</a>.</p><p>Consider the image – match the numbers against the list below the image:</p><ol><li><span style="">DC motor 1 “+” or stepper motor A+</span></li><li><span style="">DC motor 1 “-” or stepper motor A-</span></li><li><p>12V jumper – remove this if using a supply voltage greater than 12V DC. This enables power to the onboard 5V regulator</p></li><li><p>Connect your motor supply voltage here, maximum of 35V DC. Remove 12V jumper if &gt;12V DC</p></li><li><p>GND</p></li><li><p>5V output if 12V jumper in place, ideal for powering your Arduino (etc)</p></li><li><p>DC motor 1 enable jumper. Leave this in place when using a stepper motor. Connect to PWM output for DC motor speed control.</p></li><li><p>IN1</p></li><li><p>IN2</p></li><li><p>IN3</p></li><li><p>IN4</p></li><li><p>DC motor 2 enable jumper. Leave this in place when using a stepper motor. Connect to PWM output for DC motor speed control</p></li><li><p>DC motor 2 “+” or stepper motor B+</p></li><li><p>DC motor 2 “-” or stepper motor B-</p></li></ol></div><div id="double-inline-ads" class="clearfix"><div id="gpt-ad-inline-med-1" class="gpt-ad pull-left"><script type="text/javascript">
+            if (document.cookie.indexOf('authy') === -1) {
+                renderAdSlotAsync('gpt-ad-inline-med-1');
+            }
+        </script></div><div id="gpt-ad-inline-med-2" class="gpt-ad pull-right"><script type="text/javascript">
+            if (document.cookie.indexOf('authy') === -1) {
+                renderAdSlotAsync('gpt-ad-inline-med-2');
+            }
+        </script></div></div></div><div class="step-container"><h2 id="step2" class="step-title">Step 2: Controlling DC Motors</h2><div id="photoset-SFFMK91I2X6RNOE" data-item-id="SFFMK91I2X6RNOE" data-item-url="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/step2/Controlling-DC-Motors/" class="photoset"><div style="margin-bottom: 5px;" class="photoset-row cols-1"><div style="width: 100%;" class="photoset-cell image-cell"><div class="photoset-item photoset-image"><a class="photoset-link" data-fancybox-group="photoset-gallery-SFFMK91I2X6RNOE" href="http://www.instructables.com/file/F8V3Y64I2X6RNGM/" data-fancybox-href="http://cdn.instructables.com/F8V/3Y64/I2X6RNGM/F8V3Y64I2X6RNGM.LARGE.jpg"><img data-original="http://cdn.instructables.com/F8V/3Y64/I2X6RNGM/F8V3Y64I2X6RNGM.MEDIUM.jpg" alt="Picture of Controlling DC Motors" data-image-id="F8V3Y64I2X6RNGM" data-notes="[]" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F8V3Y64I2X6RNGM_002.jpg" data-original-image="http://www.instructables.com/files/orig/F8V/3Y64/I2X6RNGM/F8V3Y64I2X6RNGM.jpg" data-large="http://cdn.instructables.com/F8V/3Y64/I2X6RNGM/F8V3Y64I2X6RNGM.LARGE.jpg" data-medium="http://cdn.instructables.com/F8V/3Y64/I2X6RNGM/F8V3Y64I2X6RNGM.MEDIUM.jpg" data-small="http://cdn.instructables.com/F8V/3Y64/I2X6RNGM/F8V3Y64I2X6RNGM.SMALL.jpg" data-orig-height="94" data-orig-width="373" data-pin-no-hover="true"></a></div></div></div><div style="margin-bottom: 5px;" class="photoset-row cols-1"><div style="width: 100%;" class="photoset-cell video-cell"><div class="photoset-item photoset-video"><iframe allowfullscreen="" src="http://www.youtube.com/embed/kk51MLAHRDQ?feature=oembed" frameborder="0" height="576" width="1024"></iframe></div></div></div><a class="photoset-showmore">Show All  Items<br><i class="icon"></i></a></div><div class="step-body"><p>To control one or two DC motors is quite easy with the <a href="http://tronixlabs.com/robotics/motor-controllers/l298n-dual-motor-controller-module-2a/" rel="nofollow">L298N H-bridge module</a>. First connect each motor to the A and B connections on the L298N module. </p><p>If
+ you’re using two motors for a robot (etc) ensure that the polarity of 
+the motors is the same on both inputs. Otherwise you may need to swap 
+them over when you set both motors to forward and one goes backwards!</p><p>Next,
+ connect your power supply – the positive to pin 4 on the module and 
+negative/GND to pin 5. If you supply is up to 12V you can leave in the 
+12V jumper (point 3 in the image above) and 5V will be available from 
+pin 6 on the module. </p><p>This can be fed to your Arduino’s 5V pin to 
+power it from the motors’ power supply. Don’t forget to connect Arduino 
+GND to pin 5 on the module as well to complete the circuit. Now you will
+ need six digital output pins on your Arduino, two of which need to be 
+PWM (pulse-width modulation) pins. </p><p>PWM pins are denoted by the tilde (“~”) next to the pin number, for example in the image of the Arduino Uno's digital pins. </p><p>Finally,
+ connect the Arduino digital output pins to the driver module. In our 
+example we have two DC motors, so digital pins D9, D8, D7 and D6 will be
+ connected to pins IN1, IN2, IN3 and IN4 respectively. Then connect D10 
+to module pin 7 (remove the jumper first) and D5 to module pin 12 
+(again, remove the jumper).</p><p>The motor direction is controlled by 
+sending a HIGH or LOW signal to the drive for each motor (or channel). 
+For example for motor one, a HIGH to IN1 and a LOW to IN2 will cause it 
+to turn in one direction, and  a LOW and HIGH will cause it to turn in 
+the other direction. </p><p>However the motors will not turn until a 
+HIGH is set to the enable pin (7 for motor one, 12 for motor two). And 
+they can be turned off with a LOW to the same pin(s). However if you 
+need to control the speed of the motors, the PWM signal from the digital
+ pin connected to the enable pin can take care of it. </p><p>This is 
+what we’ve done with the DC motor demonstration sketch. Two DC motors 
+and an Arduino Uno are connected as described above, along with an 
+external power supply. Then enter and upload the following sketch:</p><pre>// connect motor controller pins to Arduino digital pins
+// motor one
+int enA = 10;
+int in1 = 9;
+int in2 = 8;
+// motor two
+int enB = 5;
+int in3 = 7;
+int in4 = 6;
+void setup()
+{
+  // set all the motor control pins to outputs
+  pinMode(enA, OUTPUT);
+  pinMode(enB, OUTPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+}
+void demoOne()
+{
+  // this function will run the motors in both directions at a fixed speed
+  // turn on motor A
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+  // set speed to 200 out of possible range 0~255
+  analogWrite(enA, 200);
+  // turn on motor B
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+  // set speed to 200 out of possible range 0~255
+  analogWrite(enB, 200);
+  delay(2000);
+  // now change motor directions
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);  
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH); 
+  delay(2000);
+  // now turn off motors
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);  
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, LOW);
+}
+void demoTwo()
+{
+  // this function will run the motors across the range of possible speeds
+  // note that maximum speed is determined by the motor itself and the operating voltage
+  // the PWM values sent by analogWrite() are fractions of the maximum speed possible 
+  // by your hardware
+  // turn on motors
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);  
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH); 
+  // accelerate from zero to maximum speed
+  for (int i = 0; i &lt; 256; i++)
+  {
+    analogWrite(enA, i);
+    analogWrite(enB, i);
+    delay(20);
+  } 
+  // decelerate from maximum speed to zero
+  for (int i = 255; i &gt;= 0; --i)
+  {
+    analogWrite(enA, i);
+    analogWrite(enB, i);
+    delay(20);
+  } 
+  // now turn off motors
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);  
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, LOW);  
+}
+void loop()
+{
+  demoOne();
+  delay(1000);
+  demoTwo();
+  delay(1000);
+}
+</pre><p>So what’s happening in that sketch? In the function demoOne() 
+we turn the motors on and run them at a PWM value of 200. This is not a 
+speed value, instead power is applied for 200/255 of an amount of time 
+at once.</p><p><br>Then after a moment the motors operate in the reverse
+ direction (see how we changed the HIGHs and LOWs in thedigitalWrite() 
+functions?). To get an idea of the range of speed possible of your 
+hardware, we run through the entire PWM range in the function demoTwo() 
+which turns the motors on and them runs through PWM values zero to 255 
+and back to zero with the two for loops. </p><p>Finally this is demonstrated in the video on this page – using our well-worn tank chassis with two DC motors.</p></div></div><div class="step-container"><h2 id="step3" class="step-title">Step 3: Controlling a Stepper Motor with Arduino and L298N </h2><div id="photoset-S3MNM9ZI2X6RNWV" data-item-id="S3MNM9ZI2X6RNWV" data-item-url="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/step3/Controlling-a-Stepper-Motor-with-Arduino-and-L298N/" class="photoset"><div style="margin-bottom: 5px;" class="photoset-row cols-1"><div style="width: 100%;" class="photoset-cell image-cell"><div class="photoset-item photoset-image"><a class="photoset-link" data-fancybox-group="photoset-gallery-S3MNM9ZI2X6RNWV" href="http://www.instructables.com/file/F5OG0BJI2X6RNGU/" data-fancybox-href="http://cdn.instructables.com/F5O/G0BJ/I2X6RNGU/F5OG0BJI2X6RNGU.LARGE.jpg"><img data-original="http://cdn.instructables.com/F5O/G0BJ/I2X6RNGU/F5OG0BJI2X6RNGU.MEDIUM.jpg" alt="Picture of Controlling a Stepper Motor with Arduino and L298N " data-image-id="F5OG0BJI2X6RNGU" data-notes="[]" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F5OG0BJI2X6RNGU_002.jpg" data-original-image="http://www.instructables.com/files/orig/F5O/G0BJ/I2X6RNGU/F5OG0BJI2X6RNGU.jpg" data-large="http://cdn.instructables.com/F5O/G0BJ/I2X6RNGU/F5OG0BJI2X6RNGU.LARGE.jpg" data-medium="http://cdn.instructables.com/F5O/G0BJ/I2X6RNGU/F5OG0BJI2X6RNGU.MEDIUM.jpg" data-small="http://cdn.instructables.com/F5O/G0BJ/I2X6RNGU/F5OG0BJI2X6RNGU.SMALL.jpg" data-orig-height="369" data-orig-width="500" data-pin-no-hover="true"></a></div></div></div><div style="margin-bottom: 5px;" class="photoset-row cols-1"><div style="width: 100%;" class="photoset-cell video-cell"><div class="photoset-item photoset-video"><iframe allowfullscreen="" src="http://www.youtube.com/embed/I8Fa6jyeVY4?feature=oembed" frameborder="0" height="576" width="1024"></iframe></div></div></div><a class="photoset-showmore">Show All  Items<br><i class="icon"></i></a></div><div class="step-body"><p>Stepper
+ motors may appear to be complex, but nothing could be further than the 
+truth. In this example we control a typical NEMA-17 stepper motor that 
+has four wires, as shown in the image on this step. </p><p>It has 200 
+steps per revolution, and can operate at at 60 RPM. If you don’t already
+ have the step and speed value for your motor, find out now and you will
+ need it for the sketch.</p><p>The key to successful stepper motor 
+control is identifying the wires – that is which one is which. You will 
+need to determine the A+, A-, B+ and B- wires. With our example motor 
+these are red, green, yellow and blue. Now let’s get the wiring done. </p><p>Connect
+ the A+, A-, B+ and B- wires from the stepper motor to the module 
+connections 1, 2, 13 and 14 respectively. Place the jumpers included 
+with the L298N module over the pairs at module points 7 and 12. Then 
+connect the power supply as required to points 4 (positive) and 5 
+(negative/GND). </p><p>Once again if your stepper motor’s power supply 
+is less than 12V, fit the jumper to the module at point 3 which gives 
+you a neat 5V power supply for your Arduino. Next, connect L298N module 
+pins IN1, IN2, IN3 and IN4 to Arduino digital pins D8, D9, D10 and D11 
+respectively. </p><p>Finally, connect Arduino GND to point 5 on the 
+module, and Arduino 5V to point 6 if sourcing 5V from the module. 
+Controlling the stepper motor from your sketches is very simple, thanks 
+to the Stepper Arduino library included with the Arduino IDE as 
+standard. </p><p>To demonstrate your motor, simply load the 
+stepper_oneRevolution sketch that is included with the Stepper library. 
+To find this, click the File &gt; Examples &gt; Stepper menu in the 
+Arduino IDE.</p><p>Finally, check the value for</p><pre>const int stepsPerRevolution = 200;</pre>
+  in the sketch and change the 200 to the number of steps per revolution
+ for your stepper motor, and also the speed which is preset to 60 RPM in
+ the following line: <pre>myStepper.setSpeed(60);</pre><p>Now you can 
+save and upload the sketch, which will send your stepper motor around 
+one revolution, then back again. This is achieved with the function</p><pre>&lt;p&gt;myStepper.step(stepsPerRevolution); // for clockwise &lt;/p&gt;&lt;p&gt;	myStepper.step(-stepsPerRevolution); // for anti-clockwise</pre><p>Finally, a quick demonstration of our test hardware is shown in the video on this step.</p><p>So there you have it, an easy an <a href="http://tronixlabs.com/robotics/motor-controllers/l298n-dual-motor-controller-module-2a/" rel="nofollow">inexpensive way to control motors with your Arduino or compatible board</a>.
+ And if you enjoyed this article, or want to introduce someone else to 
+the interesting world of Arduino – check out my book (now in a fourth 
+printing!) “<a href="http://tronixlabs.com/arduino/arduino-workshop-a-hands-on-introduction-with-65-projects-by-john-boxall/" rel="nofollow">Arduino Workshop</a>”.</p></div></div></div><div id="gpt-ad-native-bottom" class="gpt-ad"><script type="text/javascript">
+                            if (document.cookie.indexOf('authy') === -1) {
+                                renderAdSlotAsync('gpt-ad-native-bottom');
+                            }
+                        </script></div><div id="commentsWrapper"><div id="topLevelCommentField" class="post-comment-container"><form class="post-comment-form" name="PostCommentForm">
+    <input class="commentFiles" name="files" value="" type="hidden">
+    <div class="post-comment-box clearfix">
+        <div class="commenter-image pull-left">
+            <img class="postCommentAvatar" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/user.gif" alt="Post a comment">
+        </div>
+        <div class="post-comment-body redactor-container pull-right">
+            <div class="comment-tip redactor-tooltip" data-toggle="tooltip" data-placement="top" title="Highlight text to apply styling"></div>
+            <div class="redactor_box"><div dir="ltr" class="redactor_postCommentBody redactor_redactorAirComment redactor_redactor-textarea redactor_editor" contenteditable="true"><p>​</p></div><textarea style="display: none;" dir="ltr" class="postCommentBody redactorAirComment redactor-textarea" name="content"></textarea></div>
+            <div class="alert alert-info imadeit-image-warning hide">
+                <button type="button" class="close">×</button>
+                <strong>"I Made It"</strong> comments require images. Uncheck for normal comment.
+            </div>
+            <div class="comment-error hide">
+            </div>
+        </div>
+        <div class="image-bucket instructable-image-bucket clearfix "></div>
+        <div class="post-comment-toolbar clearfix">
+            <div class="policy pull-left">
+                <img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/be-nice-en.png" alt="Be nice!">
+                <p>We have a be nice comment policy.<br> Please be positive and constructive.</p>
+            </div>
+            <div class="comment-actions pull-right">
+                <button class="comment-imadeit-toggle btn"><i class="icon icon-checkmark1 hide"></i><i class="icon icon-imadeit"></i>&nbsp;   I Made it!</button>
+                <button class="addCommentImages btn"><i class="icon icon-camera selected"></i>&nbsp;    Add Images</button>
+                <button class="btn post-comment-btn btn-orange" data-loading-text="&lt;i class='icon-spin icon-large'&gt;&lt;/i&gt;">Post Comment</button>
+            </div>
+        </div>
+    </div>
+</form></div><div id="comment-list"><div class="comment-container clearfix"><div class="comment" id="comment-C8IR1LJINALMYOR">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FY9HA3PINALMYK9.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/AdrianP70">AdrianP70</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">4 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Can anyone help me out.I bought
+ a l298n shield identical with the one in this tutorial, but mine isn't 
+working at all.I've tried with arduino uno 5v, arduino mini 3.3v 
+,nodemcu esp8266 3.3v ,even straight from power supply (gnd and 9v) 
+,out1 and out2 with 9v motor conected and ENA(HIGH 5V) ,IN1(HIGH 
+5V),IN2(LOW GND) ,and still no power to motor (0,0v).Any ideas?</p><p>PS: Common ground betwen those 2 power supplies</p></div>
+            <div style="display: none;" data-item-id="C8IR1LJINALMYOR" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container reply clearfix"><div class="comment" id="comment-CA7SCSPIRC5LQGH">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/siddhantchoyal">siddhantchoyal</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/AdrianP70">AdrianP70</a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">20 days ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Check out the diagram i just posted friend ............hope it helps you :)</p></div>
+            <div style="display: none;" data-item-id="CA7SCSPIRC5LQGH" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container reply clearfix"><div class="comment" id="comment-C7N2VROIQ6WUUHH">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/%D0%9C%D0%B8%D1%85%D0%B0%D0%B8%D0%BB%D0%A05">МихаилР5</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/AdrianP70">AdrianP70</a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">2 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Try without shields. Connect wire +5V to the pin IN1 or IN2 for motor1. It must turn.</p></div>
+            <div style="display: none;" data-item-id="C7N2VROIQ6WUUHH" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div style="display: none;" class="comment-container reply clearfix"></div><div class="comment-container clearfix"><div class="comment" id="comment-C3JQG36IQFHJ0TX">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/nageshsp">nageshsp</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">a month ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Can you please post wiring diagram????</p></div>
+            <div style="display: none;" data-item-id="C3JQG36IQFHJ0TX" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container reply clearfix"><div class="comment" id="comment-CMUM93RIRC5LQ2L">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/siddhantchoyal">siddhantchoyal</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/nageshsp">nageshsp</a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">20 days ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Check out my comment bro ..................... at the top !!</p></div>
+            <div style="display: none;" data-item-id="CMUM93RIRC5LQ2L" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CFLRL0TIRC5LPQP">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/siddhantchoyal">siddhantchoyal</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">20 days ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Here's the wiring diagram for all of u guys who have doubts ...... BTW nice explanation mahn !! </p></div>
+            <div data-item-id="CFLRL0TIRC5LPQP" class="comment-photos"><a class="comment-photos-link" rel="fancybox-thumb-CFLRL0TIRC5LPQP" href="https://cdn.instructables.com/F1U/YE2O/IRC5LPOV/F1UYE2OIRC5LPOV.LARGE.jpg" data-fancybox-href="/file/ F1UYE2OIRC5LPOV">
+    <img class="photo fancybox-thumb" alt="Picture of img.jpg" data-image-id="F1UYE2OIRC5LPOV" data-notes="" data-orig-height="413" data-orig-width="620" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F1UYE2OIRC5LPOV.jpg">
+</a><a class="comment-photos-link" rel="fancybox-thumb-CFLRL0TIRC5LPQP" href="https://cdn.instructables.com/F8M/1CZL/IRC5LPQO/F8M1CZLIRC5LPQO.LARGE.jpg" data-fancybox-href="/file/ F8M1CZLIRC5LPQO">
+    <img class="photo fancybox-thumb" alt="Picture of imgg.jpg" data-image-id="F8M1CZLIRC5LPQO" data-notes="" data-orig-height="322" data-orig-width="620" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F8M1CZLIRC5LPQO.jpg">
+</a></div>
+        </div>
+        <div class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CWI7CBNIQYT1V46">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/DeivM">DeivM</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">a month ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>My advice: If you don't use PWM DC motors &gt;12 V, leave 7 an 12 jumpers in place. It will be work perfectly.</p></div>
+            <div style="display: none;" data-item-id="CWI7CBNIQYT1V46" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-C5GS6F8IQLI66LJ">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/nageshsp">nageshsp</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">a month ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>I am using arudino Uno R3 and L298n dual full bridge driver... I wired as below:</p><p>In1 to Pin8, </p><p>In2 to Pin9, </p><p>In3 to Pin10 and In4 to Pin11. </p><p>I joined the ground wires of power and arduino ground to L298N ground pin. </p><p>12v power to power source, </p><p>5v power to arduino power pin. </p><p>Enable pins I left out because there are 2 pins for enable 1 and 2.</p><p></p><p>But its not working. Motor only vibrates. Please advice..!!!</p></div>
+            <div style="display: none;" data-item-id="C5GS6F8IQLI66LJ" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-C1EPFHGIOEKAXNK">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author imadeit">
+                <a class="author-link pro" href="http://www.instructables.com/member/hein0170">hein0170</a>
+                <span style="display: inline;" class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">3 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Got it working in first try. 
+The setup is a NEMA17 stepper motor controlled by an Arduino Nano that 
+is powered by the 5V output on the controller module. Just tried the 
+Arduino stepper sketch described in this instructable. Thank you.</p></div>
+            <div data-item-id="C1EPFHGIOEKAXNK" class="comment-photos"><a class="comment-photos-link" rel="fancybox-thumb-C1EPFHGIOEKAXNK" href="https://cdn.instructables.com/F0L/3UOU/IOEKAXMU/F0L3UOUIOEKAXMU.LARGE.jpg" data-fancybox-href="/file/ F0L3UOUIOEKAXMU">
+    <img class="photo fancybox-thumb" alt="Picture of 2016-05-20 09.20.32.jpg" data-image-id="F0L3UOUIOEKAXMU" data-notes="" data-orig-height="3024" data-orig-width="4032" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F0L3UOUIOEKAXMU.jpg">
+</a></div>
+        </div>
+        <div class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container reply clearfix"><div class="comment" id="comment-CSGU9GIIOLUBOF3">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/luzho27">luzho27</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/hein0170">hein0170</a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">3 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Thanks for sharing!, I was looking how to connect my Nema 17. </p><p>Regards!</p></div>
+            <div style="display: none;" data-item-id="CSGU9GIIOLUBOF3" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CJ2S6DEIN88M3MT">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/%D9%8A%D9%88%D8%B3%D9%81%D8%A76">يوسفا6</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">4 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Thanks for the tutorial</p></div>
+            <div style="display: none;" data-item-id="CJ2S6DEIN88M3MT" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-C7IMH5JIMJECI08">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/DavidB552">DavidB552</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">5 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>can someone tell me what I need to do diffrently if I want to run it of a sepreate power supply for the motor ?</p></div>
+            <div style="display: none;" data-item-id="C7IMH5JIMJECI08" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container reply clearfix"><div class="comment" id="comment-CQ6IVUZIMJECIRA">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/DavidB552">DavidB552</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/DavidB552">DavidB552</a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">5 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>oh more so I get how to do most of the things but the speed contol is confusing me </p></div>
+            <div style="display: none;" data-item-id="CQ6IVUZIMJECIRA" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CHI268NIMF3XUEM">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/fqantonio">fqantonio</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">5 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Hello, thank you very much for 
+your tutorial. I have a question, why do we need to connect two outputs 
+to one motor, for example, IN1 and IN2? I'm use to use two outputs for 
+each engine, one in PWM , the other to enable it.</p></div>
+            <div style="display: none;" data-item-id="CHI268NIMF3XUEM" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-C3MEJ0SIMDZ9R0K">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/JamesN87">JamesN87</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">5 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Useless for me.  I am trying to
+ interface with a Basic Stamp, and will write my own code, but do not 
+know what the four input lines are.</p></div>
+            <div style="display: none;" data-item-id="C3MEJ0SIMDZ9R0K" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CO8DZBCIM5WKQSR">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F4ZRCLZIM5WKQ47.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/AnsonN">AnsonN</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">5 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Thanks for the tutorial. Got it up and running on the first try. Now to see if I can control it through Bluetooth</p></div>
+            <div style="display: none;" data-item-id="CO8DZBCIM5WKQSR" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-C9UPTB7IM6JCCFP">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F5392Y9IM6JCAZB.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/RaviJ10">RaviJ10</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">5 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Found sumthng new reated to the same.</p></div>
+            <div style="display: none;" data-item-id="C9UPTB7IM6JCCFP" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-C7EH7FEILWJ5A0U">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/GalvinL1">GalvinL1</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">5 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body">Can i connect L298n with stepper notor to PLC output? Thank u </div>
+            <div style="display: none;" data-item-id="C7EH7FEILWJ5A0U" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CC2B8BZIKLHYW85">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author imadeit">
+                <a class="author-link pro" href="http://www.instructables.com/member/vederstein">vederstein</a>
+                <span style="display: inline;" class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">6 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>I got my 4 wire bipolar stepper to work.</p><p>For
+ those folks that have issues, the biggest one is identifying which two 
+wire pairs go together.  Use a multimeter and test for which wires have 
+minimal resistance.  Those are the pairs.</p><p>As for which is positive
+ and negative, just guess.  If the motor "stutters" with the rpm set at a
+ low (60 rpm) speed, it's likely one of the wire pairs is reversed.</p></div>
+            <div data-item-id="CC2B8BZIKLHYW85" class="comment-photos"><a class="comment-photos-link" rel="fancybox-thumb-CC2B8BZIKLHYW85" href="https://cdn.instructables.com/F6R/BF89/IKLHYW6S/F6RBF89IKLHYW6S.LARGE.jpg" data-fancybox-href="/file/ F6RBF89IKLHYW6S">
+    <img class="photo fancybox-thumb" alt="Picture of DSC01357.JPG" data-image-id="F6RBF89IKLHYW6S" data-notes="" data-orig-height="1080" data-orig-width="1440" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F6RBF89IKLHYW6S.jpg">
+</a></div>
+        </div>
+        <div class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CBSFIC4IK7BYLXE">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FKGXJD7G5KP8G4Z.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/TAz00">TAz00</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">7 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Spent a good day trying to get 
+it to work. Finally figured out my connections were bad. Those blue 
+connectors on the board are not the best, so be sure to strip plenty of 
+wire, and do not tuck the wire all the way into the back of them!</p></div>
+            <div style="display: none;" data-item-id="CBSFIC4IK7BYLXE" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CFOJWLKIJNM75GS">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/sanvex">sanvex</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">7 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Thank you,thank you,thank you...it took me 15 min to test driver and motors  with this tutorial....</p></div>
+            <div style="display: none;" data-item-id="CFOJWLKIJNM75GS" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CIXGJAWIJM03WK7">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/MatijaZ4">MatijaZ4</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">7 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Hello. I've purchased Sparkfun ROB 09 238. Haven't got a clue how to connect your driver to this one. Thx for help.</p></div>
+            <div style="display: none;" data-item-id="CIXGJAWIJM03WK7" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CB0WQ85IIVZTWY8">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FLJRLI9IF9U9QWG.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/BenishR">BenishR</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">8 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body">thankyou i got it...</div>
+            <div style="display: none;" data-item-id="CB0WQ85IIVZTWY8" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CNBST6OIIQEAYYH">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/JoeB49">JoeB49</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">8 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Hi<br> I am trying to Control a
+ Stepper Motor with Arduino and L298N just like in the video above and I
+ am getting erratic motion. The red Led on the L298N module goes on and 
+off.</p><p>I am using a ' Nema 17 42mm Hybrid Stepper Motor 70oz-in 48mm
+ 2.5A' and a '12V 3A Power Supply Adapter Transformer' to power the 
+stepper.</p></div>
+            <div style="display: none;" data-item-id="CNBST6OIIQEAYYH" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CI2YZLZII21P40H">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/Abdul%20Saboor">Abdul Saboor</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">8 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Can you guide me to control 
+both DC motors using l298 and bluetooth module? My first DC motor only 
+changes direction of front tires and 2nd motor drives the rear tires.<br>Thanks</p></div>
+            <div style="display: none;" data-item-id="CI2YZLZII21P40H" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CBA6KREIFK0YKFJ">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/INNOVATOR560">INNOVATOR560</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">11 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>My stepper motor only 
+vibrates!!!! but it does turn clock wise and counter clock wise but not 
+the shaft only whole body. PLEASE HELP!!!!!!</p></div>
+            <div style="display: none;" data-item-id="CBA6KREIFK0YKFJ" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CC45THUIF7IR06Y">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FJO4UWLIFD6JKXW.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/whitefeatherhunter">whitefeatherhunter</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">11 months ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>This is a great tutorial! Just one thing: have any idea how to stop the whine on the DC motors?</p></div>
+            <div style="display: none;" data-item-id="CC45THUIF7IR06Y" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CDQE39CIEB8506W">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FDBMWJ8INUV5XM4.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/CsabaV">CsabaV</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">a year ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>I have an L298 driver, 
+controlled from PLC, and a nema 11 stepper motor. Is it possible to run 
+around 200rpm? I've tried with various delays within the code, but it 
+won't go faster then 60rpm. </p></div>
+            <div style="display: none;" data-item-id="CDQE39CIEB8506W" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CO0N36AIE2FY8O4">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display: block;" data-toggle="popover"><i style="display: inline;" class="achievement achievement-featured icon-featured coin-bronze"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display: inline;" class="achievement achievement-views icon-views1 coin-bronze"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display: inline-block;" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured coin-featured-bronze"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display: inline-block;" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views coin-views-bronze"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FVLECW5H461H299.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/teknohawk">teknohawk</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">a year ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Amazing tutorial! Thank you so infinitely much!</p></div>
+            <div style="display: none;" data-item-id="CO0N36AIE2FY8O4" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-C4BS4DUICQSZZU9">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author imadeit">
+                <a class="author-link pro" href="http://www.instructables.com/member/Poseidon_2002">Poseidon_2002</a>
+                <span style="display: inline;" class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">a year ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Many thanks, phase one of 
+testing went off without a hitch and will be in my collection. Easy 
+config. powered Arduino Uno R3 with 5V output from board. With my small 
+xBox vibration motor I peaked total sketch current consumption at 10.5 
+VDC 800-900mA. I'll be curious to know how my peristaltic pumps go as 
+they are 6 VDC and I'm really aiming for total current consumption at 9 
+VDC to be less than 1 amp so that I can use a standard AC/DC arduino 
+plug. </p></div>
+            <div data-item-id="C4BS4DUICQSZZU9" class="comment-photos"><a class="comment-photos-link" rel="fancybox-thumb-C4BS4DUICQSZZU9" href="https://cdn.instructables.com/FTF/DABS/ICQSY07R/FTFDABSICQSY07R.LARGE.jpg" data-fancybox-href="/file/ FTFDABSICQSY07R">
+    <img class="photo fancybox-thumb" alt="Picture of 0107e9c66013f4fa05adc57be70ee50b5f253ae205.jpg" data-image-id="FTFDABSICQSY07R" data-notes="" data-orig-height="1080" data-orig-width="810" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FTFDABSICQSY07R.jpg">
+</a></div>
+        </div>
+        <div class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CEJ97ZIIC5C933M">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display: block;" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display: inline;" class="achievement achievement-comments icon-comments coin-bronze"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display: inline-block;" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments coin-comments-bronze"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FY3A91HH1EMI67F.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/nodoubtman">nodoubtman</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">a year ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>Hi. What's the stepper A+ and A- ?</p><p>I have Nema-17 from adafruit : </p><p>https://www.adafruit.com/products/324</p></div>
+            <div style="display: none;" data-item-id="CEJ97ZIIC5C933M" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CC6S2SUIAPAFL1N">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FZRQWHKIALXGLEP.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/alys5">alys5</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">a year ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>hey can I connect three l298n motor controllors to arduino uno r3  because I need to control 6 dc motors</p></div>
+            <div style="display: none;" data-item-id="CC6S2SUIAPAFL1N" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CMVIYM8I9FGRKH1">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/default.png"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/akshaymehra2411">akshaymehra2411</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">a year ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>hi  <br>im using 3v dc motor and im unable to power them with my l298N module </p><p>is the 5v volt from the arduino sufficient to drive the motor and the module? </p><p>if not what do u recommend?</p><p>plz reply soon </p></div>
+            <div style="display: none;" data-item-id="CMVIYM8I9FGRKH1" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-C4DYT8PI93F83DR">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F165U1AI600CUVB.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/gc9n">gc9n</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">a year ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>hello </p><p>i am using a stepper motor Mitsumi M42SP-6NK<br><a href="http://www.mitsumi.co.jp/latest/Catalog/pdf/motor_m42sp_6nk_e.pdf" rel="nofollow">http://www.mitsumi.co.jp/latest/Catalog/pdf/motor_...</a><br><br>and a L298N Dual Motor Controller Module  with my arduino mega ...</p><p>the problem is that the motor is gettign Realy realy HOT!</p><p>is it incompatible with the driver?</p><p>Rated Voltage DC 12V DC 24V</p><p>Working Voltage DC 10.8~13.2V DC 21.6~26.4V</p><p>Rated Current/Phase 400mA(PEAK)</p><p>No. of Phase 2 Phase</p><p>Coil DC Resistance 5Ω/phase±7%</p><p>Step Angle 7.5°/step</p><p>Excitation Method 2-2 Phase excitation (Bipolar driving)</p><p>Insulation Class Class E insulation</p><p>Holding Torque 39.2mNm 39.2mNm</p><p>Pull-out Torque 23.2mNm/800pps 17.4mNm/2,000pps</p><p>Pull-in Torque 27.1mNm/200pps 26.2mNm/200pps</p><p>Max. Pull-out Pulse Rate 2,000pps 3,900pps</p><p>Max. Pull-in Pulse Rate 700pps 700pps</p><p>Somene told that That particular motor is intended for use with a chopper-type motor driver, like the Pololu A4988 breakout.</p></div>
+            <div style="display: none;" data-item-id="C4DYT8PI93F83DR" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CKQ5OVBI70AZA1N">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FVEFBYWHKJTAQ8K.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/MESHAAL">MESHAAL</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">a year ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body">Is it possible to connect LCD and monitor/control square wave ?</div>
+            <div style="display: none;" data-item-id="CKQ5OVBI70AZA1N" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-C71NJLTI5UXB87O">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display:none" data-toggle="popover"><i style="display:none" class="achievement achievement-featured icon-featured"></i>
+<i style="display:none" class="achievement achievement-comments icon-comments"></i>
+<i style="display:none" class="achievement achievement-views icon-views1"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display:none" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments"></i>
+    </div>
+    <div style="display:none" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FGU99RGHQ7308MW.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/schel">schel</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">2 years ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body"><p>I THANK YOU!! This is exactly 
+what I needed. Simple, clear and, just the "base" info I couldn't find 
+elsewhere. From your info I'm know how to try a 12v scooter motor on a 
+12 v 7 amph battery! </p></div>
+            <div style="display: none;" data-item-id="C71NJLTI5UXB87O" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div><div class="comment-container clearfix"><div class="comment" id="comment-CLLTO3PI2XTRT6E">
+    <div class="achievement-holder"><div title="" data-original-title="" class="author-achievements" style="display: block;" data-toggle="popover"><i style="display: inline;" class="achievement achievement-featured icon-featured coin-bronze"></i>
+<i style="display: inline;" class="achievement achievement-comments icon-comments coin-bronze"></i>
+<i style="display: inline;" class="achievement achievement-views icon-views1 coin-bronze"></i>
+<div style="display:none" class="achievement-popover-wrapper">
+    <div style="display: inline-block;" class="coin-wrapper coin-featured-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-featured coin-featured-bronze"></i>
+    </div>
+    <div style="display: inline-block;" class="coin-wrapper coin-comments-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-comments coin-comments-bronze"></i>
+    </div>
+    <div style="display: inline-block;" class="coin-wrapper coin-views-wrapper">
+        <p></p>
+        <i class="achievement-coin achievement-coin-views coin-views-bronze"></i>
+    </div>
+</div></div></div>
+    <div class="avatar-container">
+        <a title="" data-original-title="" class="memberstats authorsMemberPageLink"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FLFS7GEI1696Q9U.jpg"></a>
+    </div>
+    <div class="comment-main-container">
+        <div class="comment-header">
+            <span class="comment-author">
+                <a class="author-link pro" href="http://www.instructables.com/member/ibenkos">ibenkos</a>
+                <span class="made-it-header comment-info hide"> made it!</span>
+                <span class="is-author comment-info hide">(author)</span>
+                <span class="is-reply hide">
+                    <i class="icon-caret-right comment-info"></i>
+                    <a class="reply-to" href="http://www.instructables.com/member/"></a>
+                </span>
+            </span>
+            <a class="action btn btn-mini pull-right replyToCommentBtn login-required" data-sourcea="comment:reply">Reply</a>
+            <span class="comment-date pull-right comment-info">2 years ago</span>
+        </div>
+        <div class="quarantine-message"></div>
+        <div class="comment-body-container">
+            <div class="comment-body">Smart idea! Thanks for shearing :)</div>
+            <div style="display: none;" data-item-id="CLLTO3PI2XTRT6E" class="comment-photos"></div>
+        </div>
+        <div style="display: none;" class="comment-files"></div>
+        <div class="comment-actions clearfix"></div>
+    </div>
+</div></div></div><div id="comments-controls"><button style="display: none;" class="btn" id="see-more-comments"><i class="icon-arrow2-down"></i><span class="comments-controls-text">More Comments</span></button></div></div></div><div id="instructable-sidebar"><div id="admin-container"></div><div class="adBlockWrapper"><div class="adBlock"><div id="gpt-ad-med-rectangle" class="gpt-ad"><script type="text/javascript">
+              if (document.cookie.indexOf('hideAds') === -1) {
+                  renderAdSlotAsync('gpt-ad-med-rectangle');
+              }
+          </script></div></div></div><div id="ible-about-box" class="hatbox"><h3>About This Instructable <a id="more-stats-btn" class="btn"><i class="bg-icon stats"></i></a></h3><div class="hatbox-content"><div id="ible-hits-and-publish-info" class="ible-about-section"><div class="clearfix"><div id="ible-hits" class="pull-left"><span class="featured-by"></span><p class="views subtle-txt"><i class="icon icon-views1 active"></i><span class="count view-count">157,852</span><span class="view-text">views</span></p><p class="favorites subtle-txt"><i class="icon icon-favorite active"></i><span class="count favorite-count">202</span><span class="favorite-text">favorites</span></p></div><div class="v-divider"></div><div id="ible-publish-info" class="pull-left"><span class="publish-date"></span><p id="ible-license"><strong>License:</strong><br><a href="#" onclick="window.open('http://creativecommons.org/licenses/GPL/2.0/', 'LICENSE', 'status=yes,scrollbars=yes,resizable=yes,width=800,height=400'); return false;">
+                                
+                                    General Public License
+                                
+                            </a></p></div></div></div><div id="ible-author" class="ible-about-section"><div class="clearfix"><div id="ible-author-image" class="pull-left"><a href="http://www.instructables.com/member/tronixlabs/" title="tronixlabs" rel="author"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FZLQIIXHZ5DTYON.jpg" alt="tronixlabs profile picture"></a></div><div id="ible-author-details"><a id="ible-author-screenname" href="http://www.instructables.com/member/tronixlabs/" title="tronixlabs" rel="author">tronixlabs</a><a id="ible-author-website" target="_blank" href="http://www.tronixlabs.com/" title="Tronixlabs">Tronixlabs</a><a class="btn btn-yellow follow-btn login-required" data-sourcea="project:follow:stepAll">Follow</a><span class="callout follower-count">25</span></div></div><div id="ible-author-bio"><strong>Bio:</strong>
+                    Helping you make it with Australia's best value for 
+supported hobbyist electronics from adafruit, DFRobot, Freetronics, 
+Seeed Studio and more! 
+                                        
+                </div></div><div id="ible-author-more-ibles" class="ible-about-section"><div class="clearfix"><strong>More by tronixlabs:</strong><a href="http://www.instructables.com/id/Tutorial-Using-HC06-Bluetooth-to-Serial-Wireless-U/" title="Tutorial - Using HC06 Bluetooth to Serial Wireless UART Adaptors with Arduino"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FA4FK68I3THAMFK.jpg" alt="Tutorial - Using HC06 Bluetooth to Serial Wireless UART Adaptors with Arduino">&nbsp;</a><a href="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/" title="Control DC and stepper motors with L298N Dual Motor Controller Modules and Arduino"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F7DJ0WEI36LH0ER.jpg" alt="Control DC and stepper motors with L298N Dual Motor Controller Modules and Arduino">&nbsp;</a><a href="http://www.instructables.com/id/Using-PCF8574-backpacks-with-LCD-modules-and-Ardui/" title="Using PCF8574 backpacks with LCDs and Arduino"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FEV640EI0HYPO3I.jpg" alt="Using PCF8574 backpacks with LCDs and Arduino">&nbsp;</a></div></div><div id="ible-tags" class="ible-about-section"><div class="clearfix"><strong class="pull-left">Tags:</strong><a href="http://www.instructables.com/howto/arduino/" class="btn btn-mini">arduino</a><a href="http://www.instructables.com/howto/L298/" class="btn btn-mini">L298</a><a href="http://www.instructables.com/howto/dc/" class="btn btn-mini">dc</a><a href="http://www.instructables.com/howto/stepper/" class="btn btn-mini">stepper</a><a href="http://www.instructables.com/howto/motor/" class="btn btn-mini">motor</a><a href="http://www.instructables.com/howto/tutorial/" class="btn btn-mini">tutorial</a><a href="http://www.instructables.com/howto/tronixlabs/" class="btn btn-mini">tronixlabs</a></div></div><div id="add-ible-section" class="ible-about-section hide disable-preview"><div class="clearfix"><strong>Add instructable to:</strong><div class="actions"><a id="add-to-contest-btn" class="btn btn-small author-action hide"><i class="icon-contest"></i> Contest</a><a id="add-to-group-btn" class="btn btn-small"><i class="icon-groups"></i> Group</a></div></div></div></div></div><div class="hatbox related-instructabels clearfix"><h3>Related</h3><div id="related-instructables" class="hatbox-content"><ul class="unstyled"><li><div class="clearfix related-item"><a class="imglink" href="http://www.instructables.com/id/Arduino-Grove-I2C-Motor-Driver/"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FQM01HCIDYKNRPX.jpg" alt="Arduino - Grove I2C Motor Driver" title="Arduino - Grove I2C Motor Driver"></a><p class="info"><a href="http://www.instructables.com/id/Arduino-Grove-I2C-Motor-Driver/" class="title" title="Arduino - Grove I2C Motor Driver">Arduino - Grove I2C Motor Driver</a><br>by <a href="http://www.instructables.com/member/ThisIsSteve/" class="user">ThisIsSteve</a></p></div></li><li><div class="clearfix related-item"><a class="imglink" href="http://www.instructables.com/id/L298N-Motor-Driver-Controller-Board/"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F4R5XFIIF7IV6EO.jpg" alt="L298N Motor Driver Controller Board" title="L298N Motor Driver Controller Board"></a><p class="info"><a href="http://www.instructables.com/id/L298N-Motor-Driver-Controller-Board/" class="title" title="L298N Motor Driver Controller Board">L298N Motor Driver Controller Board</a><br>by <a href="http://www.instructables.com/member/smching/" class="user">smching</a></p></div></li><li><div class="clearfix related-item"><a class="imglink" href="http://www.instructables.com/id/How-to-use-the-L298-Motor-Driver-Module-Arduino-Tu/"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FFP8Q00ID2XEF82.jpg" alt="How to use the L298 Motor Driver Module - Arduino Tutorial" title="How to use the L298 Motor Driver Module - Arduino Tutorial"></a><p class="info"><a href="http://www.instructables.com/id/How-to-use-the-L298-Motor-Driver-Module-Arduino-Tu/" class="title" title="How to use the L298 Motor Driver Module - Arduino Tutorial">How to use the L298 Motor Driver Module - Arduino Tutorial</a><br>by <a href="http://www.instructables.com/member/codebender_cc/" class="user">codebender_cc</a></p></div></li><li><div class="clearfix related-item"><a class="imglink" href="http://www.instructables.com/id/Living-With-Arduino-and-the-L298N-H-Bridge-for-Bi-/"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/F7OG5IJINHOOMDA.jpg" alt="Living with Arduino and the L298N H-Bridge for Bi-Polar Stepper Motor Control" title="Living with Arduino and the L298N H-Bridge for Bi-Polar Stepper Motor Control"></a><p class="info"><a href="http://www.instructables.com/id/Living-With-Arduino-and-the-L298N-H-Bridge-for-Bi-/" class="title" title="Living with Arduino and the L298N H-Bridge for Bi-Polar Stepper Motor Control">Living with Arduino and the L298N H-Bridge for Bi-Polar Stepper Motor Control</a><br>by <a href="http://www.instructables.com/member/AmmoMfg/" class="user">AmmoMfg</a></p></div></li><li><div class="clearfix related-item"><a class="imglink" href="http://www.instructables.com/id/How-to-Interface-Stepper-Motor-With-Arduino-and-St/"><img src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/FAGAKAVIQSCGBIO.jpg" alt="How to Interface Stepper Motor With Arduino and Stepper Motor Driver" title="How to Interface Stepper Motor With Arduino and Stepper Motor Driver"></a><p class="info"><a href="http://www.instructables.com/id/How-to-Interface-Stepper-Motor-With-Arduino-and-St/" class="title" title="How to Interface Stepper Motor With Arduino and Stepper Motor Driver">How to Interface Stepper Motor With Arduino and Stepper Motor Driver</a><br>by <a href="http://www.instructables.com/member/mybotic/" class="user">mybotic</a></p></div></li></ul></div></div><div style="height: 0px;" id="ible-stickyad-wrapper" class="adBlockWrapper"><div style="top: 152px; bottom: auto; left: auto; position: fixed;" id="ible-stickyad"><div id="gpt-ad-sidebar-brand" class="gpt-ad"><script type="text/javascript">
+                if (document.cookie.indexOf('hideAds') === -1) {
+                    renderAdSlotAsync('gpt-ad-sidebar-brand');
+                }
+            </script></div></div></div></div></div></div><div id="jsp-footer"><div id="gbl-footer"><div class="top"><div class="container"><div id="footer-featured-channels"><div class="featured-channels-title">FEATURED CHANNELS</div><div class="title-divider"></div><style>
+#footer-featured-channels li {
+    padding: 0 0px;
+    width: 109px;
+}
+</style><ul><li class="featured-item adspot-link"><a href="http://www.instructables.com/tag/type-id/category-workshop/channel-woodworking/" title="Woodworking"><div class="ad-image"><div class="promo" id="woodworking-channel-promo"></div></div><div>Woodworking</div></a></li><li class="featured-item adspot-link"><a href="http://www.instructables.com/tag/type-id/category-craft/channel-paper/" title="paper"><div class="ad-image"><div class="promo" id="paper-promo"></div></div><div>Paper</div></a></li><li class="featured-item adspot-link"><a href="http://www.instructables.com/tag/type-id/keyword-kitchen%20hacks/?sort=FAVORITES" title="Kitchen Hacks"><div class="ad-image"><div class="promo" id="kitchen-promo"></div></div><div>Kitchen Hacks</div></a></li><li class="featured-item adspot-link"><a href="http://www.instructables.com/tag/type-id/category-play/channel-puzzles/" title="Puzzles"><div class="ad-image"><div class="promo" id="puzzles-promo"></div></div><div>Puzzles</div></a></li><li class="featured-item adspot-link"><a href="http://www.instructables.com/tag/type-id/keyword-astronomy/?sort=FAVORITES" title="Space"><div class="ad-image"><div class="promo" id="space-promo"></div></div><div>Space</div></a></li><li class="featured-item adspot-link"><a href="http://www.instructables.com/tag/type-id/keyword-ice%20cream/?sort=FAVORITES" title="Ice Cream"><div class="ad-image"><div class="promo" id="icecream-promo"></div></div><div>Ice Cream</div></a></li><li class="featured-item adspot-link"><a href="http://www.instructables.com/tag/type-id/category-home/channel-homesteading/" title="Homesteading"><div class="ad-image"><div class="promo" id="hydroponics-channel-promo"></div></div><div>Homesteading</div></a></li><li class="featured-item adspot-link"><a href="http://www.instructables.com/tag/type-id/category-technology/channel-3D-Printing/" title="3d Printing"><div class="ad-image"><div class="promo" id="threed-printing-promo"></div></div><div>3D Printing</div></a></li><li class="featured-item adspot-link"><a href="http://www.instructables.com/tag/type-id/category-craft/channel-sewing/" title="Sewing"><div class="ad-image"><div class="promo" id="sewing-promo"></div></div><div>Sewing</div></a></li></ul></div></div></div><div class="bottom"><div class="container"><div class="row-fluid"><img alt="robot" id="footer-robot" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/footer-robot.png"><div class="col" id="footer-newsletter"><h3>Newsletter</h3><p>Join 2 million + to receive instant DIY inspiration in  your inbox.</p><form class="form-horizontal" onsubmit="javascript:$('#newsletter-signup-btn').click(); return false;"><div class="input-append"><input class="span8" id="email-input-field" placeholder="enter email" type="text"><button class="btn btn-dark-grey" id="newsletter-signup-btn" type="button">I'm in!</button></div></form></div><div class="col" id="footer-mobile"><div class="downloads"><h3>Mobile</h3><p>Download our apps!</p><ul><li><a href="https://play.google.com/store/apps/details?id=com.adsk.instructables" title="Instructables Android App">Android »</a></li><li><a href="https://itunes.apple.com/app/instructables/id586765571" title="Instructables iOS App">iOS »</a></li><li><a href="http://apps.microsoft.com/windows/en-us/app/7afc8194-c771-441a-9590-54250d6a8300" title="Instructables Windows 8 App">Windows »</a></li></ul></div></div><div class="col" id="footer-aboutus"><h3>About Us</h3><ul><li><a href="http://www.instructables.com/about/" title="About Us">Who We Are</a></li><li><a href="http://www.instructables.com/advertise/" title="Advertise">Advertise</a></li><li><a href="http://www.instructables.com/about/contact.jsp" title="Contact">Contact</a></li><li><a href="http://www.instructables.com/community/Positions-available-at-Instructables/" title="Jobs">Jobs</a></li><li><a href="http://www.instructables.com/id/how-to-write-a-great-instructable/" title="Help">Help</a></li></ul></div><div class="col" id="footer-findus"><h3>Find Us</h3><ul><li><a class="facebook" href="http://www.facebook.com/instructables" title="Facebook">Facebook</a></li><li><a class="youtube" href="http://www.youtube.com/user/instructablestv" title="Youtube">Youtube</a></li><li><a class="twitter" href="http://www.twitter.com/instructables" title="Twitter">Twitter</a></li><li><a class="pinterest" href="http://www.pinterest.com/instructables" title="Pinterest">Pinterest</a></li><li><a class="googleplus" href="https://plus.google.com/+instructables" rel="publisher" title="Google+">Google+</a></li></ul></div><div class="col" id="footer-resources"><h3>Resources</h3><ul><li><a href="http://www.instructables.com/teachers/" title="Teachers">For Teachers</a></li><li><a href="http://www.instructables.com/air" title="Artists In Residence">Artists in Residence</a></li><li><a href="http://www.instructables.com/account/give?sourcea=footer" title="Give A Premium Membership">Gift Premium Account</a></li><li><a href="http://www.instructables.com/community/" title="Forums">Forums</a></li><li><a href="http://www.instructables.com/tag/type-question/?sort=RECENT" title="Answers">Answers</a></li><li><a href="http://www.instructables.com/sitemap/" title="Sitemap">Sitemap</a></li></ul></div></div></div><div class="container content-match"><div class="row-fluid"><hr><div class="pull-right" id="footer-links"><ul><li><a href="http://usa.autodesk.com/adsk/servlet/item?siteID=123112&amp;id=21959721" target="_blank" title="Terms of Service">Terms of Service</a><span class="divider">|</span></li><li><a href="http://usa.autodesk.com/adsk/servlet/item?siteID=123112&amp;id=21292079" target="_blank" title="Privacy Statement">Privacy Statement</a><span class="divider">|</span></li><li><a href="http://usa.autodesk.com/legal-notices-trademarks/" target="_blank">Legal Notices &amp; Trademarks</a><span class="divider">|</span></li><li><a href="http://www.instructables.com/" id="mobile-site-link" title="Mobile Site">Mobile Site</a></li><li><a href="http://usa.autodesk.com/adsk/servlet/pc/index?id=20781545&amp;siteID=123112" id="adsk-logo" target="blank" title="Autodesk"><img alt="autodesk" src="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/autodesk-logo.png"></a></li></ul></div><div id="copyright-notice"><p>© 2016 Autodesk, Inc.</p></div></div></div></div></div></div><script type="text/javascript">
+    window.Ibles = window.Ibles || {};
+    var userJson = readCookie('ibleuser') && JSON.parse(readCookie('ibleuser'));
+    window.Ibles.pageContext = {
+        mobile: false,
+        loggedIn: !!readCookie('authy'),
+        userId: userJson && userJson.id,
+        pro: userJson && userJson.pro,
+        category: "technology",
+        channel: "arduino",
+        currentLocale: "en_US",
+        remoteHost: "http://www.instructables.com",
+        remoteRoot : "http://www.instructables.com/",
+        staticRoot: "/intl_static/",
+        facebookAppId: "140028286058792",
+        gtmContainerID: "GTM-PLDK3K",
+        recaptchaSiteKey: "6Le9TAwTAAAAADEB44pkYQS2fm7hroFthrNqnoAb",
+        oauthCallbackUrl: "http://www.instructables.com/oauth/callback.jsp",
+        oauthGetAuthUrl: "http://www.instructables.com/oauth/getAuthUrl.jsp",
+        redirectURI: "/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/?ALLSTEPS",
+        nativeApp: "",
+        disableEmailVerifyWidget: false,
+        paymentPlans: {
+            course: "CLASS_SUBSCRIPTION",
+            annual: "ANNUAL_SUBSCRIPTION",
+            quarterly: "QUARTERLY_SUBSCRIPTION",
+            twoYearSinglePayment: "TWO_YEAR_SINGLE_PAYMENT"
+        }
+    };
+    
+        Ibles.pageContext.ibleData = JSON.parse("{\u0022featureFlag\u0022:false,\u0022commentingEnabled\u0022:true,\u0022locale\u0022:\u0022en_US\u0022,\u0022fullAccessFlag\u0022:false,\u0022stepCount\u0022:4,\u0022homePageFeatureFlag\u0022:false,\u0022machineTranslatedFlag\u0022:false,\u0022mediumUrl\u0022:\u0022http://cdn.instructables.com/F7D/J0WE/I36LH0ER/F7DJ0WEI36LH0ER.MEDIUM.jpg\u0022,\u0022smallUrl\u0022:\u0022http://cdn.instructables.com/F7D/J0WE/I36LH0ER/F7DJ0WEI36LH0ER.SMALL.jpg\u0022,\u0022referrers\u0022:[{\u0022https://www.google.com/\u0022:13403},{\u0022https://www.google.co.in/\u0022:4891},{\u0022http://m.instructables.com/\u0022:4536},{\u0022https://www.google.com\u0022:3318},{\u0022https://www.google.co.uk/\u0022:2159},{\u0022https://www.google.com.tr/\u0022:1968},{\u0022http://www.google.com/\u0022:1739},{\u0022https://www.google.de/\u0022:1600},{\u0022https://www.google.it/\u0022:1588},{\u0022https://www.google.ca/\u0022:1474},{\u0022https://www.google.com.au/\u0022:1443},{\u0022https://www.google.com.pk/\u0022:1354},{\u0022https://www.google.de\u0022:1309},{\u0022https://www.google.fr/\u0022:1277},{\u0022https://www.google.nl/\u0022:1217},{\u0022https://www.google.co.id/\u0022:1205},{\u0022https://www.google.com.mx/\u0022:1097},{\u0022https://www.google.co.th/\u0022:1059},{\u0022https://www.google.com.br/\u0022:1026},{\u0022https://www.google.es/\u0022:903},{\u0022https://www.google.ro/\u0022:867},{\u0022https://www.google.com.eg/\u0022:860},{\u0022https://www.google.co.in\u0022:832},{\u0022https://www.google.lk/\u0022:717},{\u0022https://www.google.pl/\u0022:705},{\u0022https://www.google.fr\u0022:678},{\u0022http://www.google.co.in/\u0022:636},{\u0022https://www.google.com.ph/\u0022:567},{\u0022https://www.google.co.il/\u0022:527},{\u0022android\u0022:526},{\u0022https://www.google.se/\u0022:499},{\u0022https://www.google.be/\u0022:489},{\u0022https://www.google.dk/\u0022:483},{\u0022https://www.google.it\u0022:474},{\u0022https://www.google.com.tw/\u0022:473},{\u0022https://www.google.pt/\u0022:456},{\u0022https://www.google.co.uk\u0022:450},{\u0022https://www.google.ru/\u0022:450},{\u0022https://www.google.com.hk/\u0022:431},{\u0022https://www.google.co.za/\u0022:406},{\u0022http://www.google.de/\u0022:389},{\u0022https://www.google.com.sg/\u0022:385},{\u0022https://www.google.pl\u0022:364},{\u0022https://www.google.com.au\u0022:347},{\u0022https://www.google.co.kr/\u0022:332},{\u0022http://www.google.co.uk/\u0022:326},{\u0022https://www.google.hu/\u0022:326},{\u0022https://www.google.co.nz/\u0022:322},{\u0022https://www.google.com.co/\u0022:317},{\u0022https://www.google.cz/\u0022:312}],\u0022square2Url\u0022:\u0022http://cdn.instructables.com/F7D/J0WE/I36LH0ER/F7DJ0WEI36LH0ER.SQUARE2.jpg\u0022,\u0022id\u0022:\u0022E5RGF76I2X6RNGG\u0022,\u0022sponsoredFlag\u0022:false,\u0022votableContests\u0022:[],\u0022category\u0022:\u0022technology\u0022,\u0022title\u0022:\u0022Control DC and stepper motors with L298N Dual Motor Controller Modules and Arduino\u0022,\u0022pgFlag\u0022:false,\u0022comments\u0022:36,\u0022displayChannel\u0022:\u0022Arduino\u0022,\u0022numStepsByWordCount\u0022:2,\u0022editVersion\u0022:80,\u0022popularFlag\u0022:true,\u0022typeChar\u0022:\u0022E\u0022,\u0022type\u0022:\u0022Step by Step\u0022,\u0022urlString\u0022:\u0022Control\u002DDC\u002Dand\u002Dstepper\u002Dmotors\u002Dwith\u002DL298N\u002DDual\u002DMoto\u0022,\u0022channel\u0022:\u0022arduino\u0022,\u0022status\u0022:\u0022PUBLISHED\u0022,\u0022views\u0022:152137,\u0022homePageFeatureGiftSent\u0022:false,\u0022publishDate\u0022:\u00222014\u002D11\u002D25 04:53:20.0\u0022,\u0022modifiedDate\u0022:\u00222016\u002D05\u002D12 16:40:03.0\u0022,\u0022favorites\u0022:199,\u0022license\u0022:{\u0022url\u0022:\u0022http://creativecommons.org/licenses/GPL/2.0/\u0022,\u0022fullName\u0022:\u0022General Public License\u0022,\u0022short_name\u0022:\u0022gpl\u0022},\u0022coverImage\u0022:{\u0022rectangle1Url\u0022:\u0022http://cdn.instructables.com/F7D/J0WE/I36LH0ER/F7DJ0WEI36LH0ER.RECTANGLE1.jpg\u0022,\u0022rect840Url\u0022:\u0022http://cdn.instructables.com/F7D/J0WE/I36LH0ER/F7DJ0WEI36LH0ER.RECT840.jpg\u0022},\u0022author\u0022:{\u0022about\u0022:\u0022Helping you make it with Australia\u0027s best value for supported hobbyist electronics from adafruit, DFRobot, Freetronics, Seeed Studio and more! \u0022,\u0022followersCount\u0022:25,\u0022url\u0022:\u0022http://www.tronixlabs.com\u0022,\u0022squareUrl\u0022:\u0022http://cdn.instructables.com/FZL/QIIX/HZ5DTYON/FZLQIIXHZ5DTYON.SQUARE.jpg\u0022,\u0022tinyUrl\u0022:\u0022http://cdn.instructables.com/FZL/QIIX/HZ5DTYON/FZLQIIXHZ5DTYON.TINY.jpg\u0022,\u0022websiteName\u0022:\u0022Tronixlabs\u0022,\u0022recent\u0022:[{\u0022square2Url\u0022:\u0022http://cdn.instructables.com/FA4/FK68/I3THAMFK/FA4FK68I3THAMFK.SQUARE2.jpg\u0022,\u0022urlString\u0022:\u0022Tutorial\u002DUsing\u002DHC06\u002DBluetooth\u002Dto\u002DSerial\u002DWireless\u002DU\u0022,\u0022title\u0022:\u0022Tutorial \u002D Using HC06 Bluetooth to Serial Wireless UART Adaptors with Arduino\u0022},{\u0022square2Url\u0022:\u0022http://cdn.instructables.com/F7D/J0WE/I36LH0ER/F7DJ0WEI36LH0ER.SQUARE2.jpg\u0022,\u0022urlString\u0022:\u0022Control\u002DDC\u002Dand\u002Dstepper\u002Dmotors\u002Dwith\u002DL298N\u002DDual\u002DMoto\u0022,\u0022title\u0022:\u0022Control DC and stepper motors with L298N Dual Motor Controller Modules and Arduino\u0022},{\u0022square2Url\u0022:\u0022http://cdn.instructables.com/FEV/640E/I0HYPO3I/FEV640EI0HYPO3I.SQUARE2.jpg\u0022,\u0022urlString\u0022:\u0022Using\u002DPCF8574\u002Dbackpacks\u002Dwith\u002DLCD\u002Dmodules\u002Dand\u002DArdui\u0022,\u0022title\u0022:\u0022Using PCF8574 backpacks with LCDs and Arduino\u0022}],\u0022id\u0022:\u0022MWZY9PHHVR7UY8A\u0022,\u0022screenName\u0022:\u0022tronixlabs\u0022},\u0022displayCategory\u0022:\u0022Technology\u0022,\u0022keywords\u0022:[\u0022arduino\u0022,\u0022L298\u0022,\u0022dc\u0022,\u0022stepper\u0022,\u0022motor\u0022,\u0022tutorial\u0022,\u0022tronixlabs\u0022],\u0022rectangle1Url\u0022:\u0022http://cdn.instructables.com/F7D/J0WE/I36LH0ER/F7DJ0WEI36LH0ER.RECTANGLE1.jpg\u0022}");
+    
+</script><script type="text/javascript">
+        
+            window.BASE_SCRIPTS = [ "/intl_static/base-desktop-bs2-3d8c7330.js",];
+        
+        
+            window.PAGE_SCRIPTS = [];
+        
+
+        head.ready(function(){
+            (function(options){
+                Ibles.session = new Ibles.models.SessionModel();
+                new Ibles.views.GlobalHeader();            
+                new Ibles.views.EmailVerificationTrigger(options);
+                new Ibles.views.RoleRequiredAction(options);
+                new Ibles.views.UtmzTrackingMiddleware();
+            })(window.Ibles.pageContext);
+        });
+
+        
+        
+    
+head.ready(function(){
+    LogHit('E5RGF76I2X6RNGG','E','MWZY9PHHVR7UY8A');
+
+    dataLayer.push({
+        'event': 'GAVirtualPageView',
+        'GAVirtualPageViewPage': '/event/technology/arduino/Step by Step/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/none/'
+    });
+});
+
+    
+        sessionReady([
+                 "/intl_static/ible-109f704d.js",
+    			"http://platform.tumblr.com/v1/share.js",
+    		    "//platform.twitter.com/widgets.js"
+    		],
+    		function(session) {
+                var model = new Ibles.models.InstructableModel(_.extend({
+                    disableComments: !JSON.parse("true"),
+                    allSteps: JSON.parse("true"),
+                    currentStepIndex: JSON.parse("\u0022All\u0022"),
+                    fetchUserData: true,
+                    fetchStats: true,
+                    cover_image: 'http://cdn.instructables.com/F7D/J0WE/I36LH0ER/F7DJ0WEI36LH0ER.RECT2100.jpg'
+                }, Ibles.pageContext.ibleData));
+
+                var view = new Ibles.views.InstructableView({
+                    el: "#instructable-wrapper",
+                    model: model
+                });
+            }
+        );
+    
+    
+head.ready(function(){
+    (function(d){
+        var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
+        p.type = 'text/javascript';
+        p.async = true;
+        p.setAttribute('data-pin-hover', true);
+        p.src = '//assets.pinterest.com/js/pinit.js';
+        f.parentNode.insertBefore(p, f);
+
+        // adds "nopin='nopin'" attributes to images that we don't want pinned by pinterest bookmarklet
+        $(function() {$('.nopin img').attr('nopin', 'nopin');});
+    }(document));
+});
+
+
+        
+                        
+        head.load(BASE_SCRIPTS.concat(PAGE_SCRIPTS));
+    </script><div id="BF_WIDGET_1"></div><script>
+window.Ibles = window.Ibles || {};    
+(function(){
+    Ibles.reverseUrls =  {
+        appendParams: function(url, options) {
+            return Ibles.appendUrlParams(url, options);
+        },        
+        home: function() {
+            return "/";
+        },
+        memberUrl: function(screenName) {
+            return "/member/SCREENNAME/".replace("SCREENNAME", screenName);
+        },
+        memberFavUrl: function(screenName) {
+            return "/member/SCREENNAME/favorites/".replace("SCREENNAME", screenName);
+        },
+        memberIblesUrl: function(screenName) {
+            return "/member/SCREENNAME/instructables/".replace("SCREENNAME", screenName);
+        },
+        ibleUrl: function(id, allSteps) {
+            var url;
+            if (allSteps)
+                url = "/id/IBLE/?ALLSTEPS";
+            else
+                url = "/id/IBLE/";
+            return url.replace("IBLE", id);
+        },
+        ibleEditUrl: function(id) {
+            return "/editInstructable/edit/IBLE/".replace('IBLE', id);
+        },
+        iblePdfUrl: function(id) {
+            return "/id/IBLE/?download=pdf".replace('IBLE', id);
+        },
+        previewUrl:function(id) {
+            var url = "/preview/IBLE/";
+            return url.replace("IBLE", id);
+        },
+        editorCreate: function() {
+            return "/editInstructable/new/";
+        },
+        editorDrafts: function() {
+            return "/editInstructable/drafts/";
+        },
+        editorPublished: function() {
+            return "/editInstructable/published/";
+        },
+        collectionEditUrl: function(id) {
+            return "/editCollection/COLLECTION_ID/".replace('COLLECTION_ID', id);  
+        },
+        contestDetailUrl: function(urlString) {
+            return "/contest/URLST/".replace('URLST', urlString);
+        },
+        groupUrl: function(urlString) {
+            return "/group/URLST/".replace('URLST', urlString);
+        },
+        courseUrl: function(urlString) {
+            return "/class/URLST/".replace('URLST', urlString);
+        },
+        courses: function() {
+            return "/classes/";
+        },
+        lessonUrl: function(urlString) {
+            return "/lesson/URLST/".replace('URLST', urlString);
+        },
+        loginUrl: function(options) {
+            return this.appendParams("/account/login/", options);
+        },
+        nativeAppLoginUrl: function() {
+            return "/account/nativeapp/login/";
+        },        
+        signupUrl: function(options) {
+            return this.appendParams("/account/register/", options);
+        },
+        nativeAppSignupUrl: function() {
+            return "/account/nativeapp/signup/";
+        },
+        forgotPasswordUrl: function(options) {
+            return "/account/forgot/";
+        },
+        nativeAppForgotPasswordUrl: function() {
+            return "/account/nativeapp/forgot/";
+        },        
+        resetPasswordUrl: function(options) {
+            return this.appendParams("/account/reset/", options);
+        },
+        nativeAppResetPasswordUrl: function() {
+            return "/account/nativeapp/reset/";
+        },
+        goproUrl: function(options) {
+            return this.appendParams("/account/gopro", options);
+        },
+        payUrl: function(options) {
+            return this.appendParams("/payment/pay", options);
+        },
+        paymentPaidUrl: function(options) {
+            return this.appendParams("/payment/paypal-paid", options);
+        },
+        paymentCancelledUrl: function(options) {
+            return this.appendParams("/payment/paypal-cancelled", options);
+        },
+        staticUrl: function() {
+            return "/intl_static/"
+        },
+		s3Url:function(path, filename) {
+			return "https://cdn.instructables.com/" + path + filename;
+		},
+        bulkAction: function() {
+            return "/tools/bulkaction/";
+        },
+
+        // Channels currently only exist in the main site code base
+        // so there's no reverse URL function available for them.
+        // For category and channel, use the normal name, not the display name.
+        channelUrl: function(locale, category, channel) {
+            if (locale === 'en_US') {
+				
+                    
+                    return "/tag/type-id/category-technology/channel-CHANNEL/".replace('technology', category).replace('CHANNEL', channel);
+				
+			}
+            else {
+                return this.exploreUrl(category,channel);
+            }
+        },
+		exploreUrl:function(category, channel){
+			if (_.isUndefined(channel)){
+				return "/tag/type-id/channel-CATEGORY/".replace('CATEGOGRY',category)
+			} else {
+				return "/tag/type-id/category-CATEGORY/channel-CHANNEL/".replace('CATEGORY',category).replace('CHANNEL',channel);
+			}
+		},
+		searchUrl: function(searchTerm) {
+			return "/howto/QUERYSTRING".replace('QUERYSTRING', searchTerm);
+		},        
+        feed: function() {
+            return "/feed/";
+        },        
+        customizeFeedUrl: function() {
+            return "/feed/customize/";
+        },        
+        feedOnboardingUrl: function(options) {
+            return this.appendParams("/feed/customize/get_started", options);
+        },
+        privateMessageUrl: function(screenName) {
+            return "/member/SCREENNAME/message/".replace("SCREENNAME", screenName);
+        }
+	};
+})();
+</script><script>
+    window.Ibles = window.Ibles || {};    
+    
+    Ibles.assets = {
+        manageCollectionAssets: function() {        
+            return [
+            "/intl_static/create-collection-52b3807b.js",
+            ]
+        },
+        
+        admin: function() {
+            return [
+            "/intl_static/ible-admin-2932c73d.js",
+            ];            
+        },
+        
+        printItVia3Dhubs: function() {
+            return [
+            "/intl_static/ible-print-it-99dbc649.js",
+            ];
+        },
+
+		mobileUploader: function(){
+			return [
+            "/intl_static/ible-uploader-m-bf43c39d.js",
+            ];
+		}
+    }
+</script><div style="" class="social-share-overlay">
+    <a class="share-overlay-btn pinterest-share-btn"><i class="share-icon icon-pinterest"></i></a>
+    <a class="share-overlay-btn facebook-share-btn"><i class="share-icon icon-facebook"></i></a>
+    <a class="share-overlay-btn twitter-share-btn"><i class="share-icon icon-twitter"></i></a>
+    <a class="share-overlay-btn link-share-btn"><i class="share-icon icon-link"></i></a>
+    <a class="share-overlay-btn email-share-btn"><i class="share-icon icon-email"></i></a>
+    <div style="left: 30px;" class="link-share-overlay">
+        <div class="input-append">
+            <input class="span3" value="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/" type="text">
+            <button class="btn" type="button" id="copy-button" data-clipboard-text="http://www.instructables.com/id/Control-DC-and-stepper-motors-with-L298N-Dual-Moto/" title="Click to copy">Copy</button>
+        </div>
+    </div>
+</div><div style="position: absolute; left: 0px; top: -9999px; width: 1px; height: 1px; z-index: 999999999;" class="global-zeroclipboard-container" id="global-zeroclipboard-html-bridge"><object id="global-zeroclipboard-flash-bridge" name="global-zeroclipboard-flash-bridge" type="application/x-shockwave-flash" data="Control%20DC%20and%20stepper%20motors%20with%20L298N%20Dual%20Motor%20Controller%20Modules%20and%20Arduino%20-%20All_files/ZeroClipboard.swf" height="100%" width="100%"><param name="allowScriptAccess" value="sameDomain"><param name="allowNetworking" value="all"><param name="menu" value="false"><param name="wmode" value="transparent"><param name="flashvars" value="trustedOrigins=www.instructables.com%2C%2F%2Fwww.instructables.com%2Chttp%3A%2F%2Fwww.instructables.com&amp;swfObjectId=global-zeroclipboard-flash-bridge&amp;jsVersion=2.2.0"><div id="global-zeroclipboard-flash-bridge_fallbackContent">&nbsp;</div></object></div><div style="display: none;" id="redactor_air_0" class="redactor_air"><ul id="redactor_toolbar_0" class="redactor_toolbar"><li><a href="javascript:;" title="Bold" tabindex="-1" class="redactor_btn redactor_btn_bold"></a></li><li><a href="javascript:;" title="Italic" tabindex="-1" class="redactor_btn redactor_btn_italic"></a></li><li><a href="javascript:;" title="Heading" tabindex="-1" class="redactor_btn redactor_btn_heading"></a></li><li><a href="javascript:;" title="Link" tabindex="-1" class="redactor_btn redactor_btn_link_ibles"></a></li><li><a href="javascript:;" title="Blockquote" tabindex="-1" class="redactor_btn redactor_btn_quote"></a></li></ul></div></body></html>
