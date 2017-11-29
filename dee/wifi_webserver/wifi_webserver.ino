@@ -1,8 +1,8 @@
-//#include <SoftwareSerial.h>
+#include <SoftwareSerial.h>
  
 #define DEBUG true
  
-//SoftwareSerial Serial1(2,3); // make RX Arduino line is pin 2, make TX Arduino line is pin 3.
+SoftwareSerial Serial1(8,9); // make RX Arduino line is pin 2, make TX Arduino line is pin 3.
                              // This means that you need to connect the TX line from the esp to the Arduino's pin 2
                              // and the RX line from the esp to the Arduino's pin 3
 void setup()
@@ -10,13 +10,14 @@ void setup()
   Serial.begin(115200);
   Serial1.begin(115200); // your esp's baud rate might be different
   
- 
+ Serial.println("starting0");
   
   sendData("AT+RST\r\n",2000,DEBUG); // reset module
   sendData("AT+CWMODE=2\r\n",1000,DEBUG); // configure as access point
   sendData("AT+CIFSR\r\n",1000,DEBUG); // get ip address
   sendData("AT+CIPMUX=1\r\n",1000,DEBUG); // configure for multiple connections
   sendData("AT+CIPSERVER=1,80\r\n",1000,DEBUG); // turn on server on port 80
+  Serial.println("starting1");
 }
  
 void loop()

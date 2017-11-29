@@ -1,122 +1,99 @@
-#include <SoftwareSerial.h>
-   #define SSID "enter the SSID"
-   #define PASS "enter the password"
-   #define DST_IP "220.181.111.85" //baidu.com
-   SoftwareSerial dbgSerial(10, 11); // RX, TX
-   void setup()
-   {
-     //setup RGB LED as indicator instead of softserial
-     pinMode(3, OUTPUT);
-     pinMode(4, OUTPUT);
-     pinMode(5, OUTPUT);
-     pinMode(6, OUTPUT);
-     digitalWrite(3, HIGH);
-     digitalWrite(4, HIGH);
-     digitalWrite(5, HIGH);
-     digitalWrite(6, HIGH);
-     
-     
-     // Open serial communications and wait for port to open:
-     Serial.begin(9600);
-     Serial.setTimeout(5000);
-     dbgSerial.begin(9600); //can't be faster than 19200 for softserial
-     dbgSerial.println("ESP8266 Demo");
-     //test if the module is ready
-     Serial.println("AT+RST");
-     delay(1000);
-     if(Serial.find("ready"))
-     {
-       dbgSerial.println("Module is ready");
-       //blink green 1sec
-       digitalWrite(5, LOW);
-       delay(1000);
-       digitalWrite(5, HIGH);
-      }
-     else
-     {
-       dbgSerial.println("Module have no response.");
-       //blink blue 1sec
-       digitalWrite(3, LOW);
-       delay(1000);
-       digitalWrite(3, HIGH);
-       while(1);
-     }
-     delay(1000);
-     //connect to the wifi
-     boolean connected=false;
-     for(int i=0;i<5;i++)
-     {
-       if(connectWiFi())
-       {
-         connected = true;
-       //blink blue 1sec
-       digitalWrite(6, LOW);
-       delay(1000);
-       digitalWrite(6, HIGH);
-         break;
-       }
-     }
-     if (!connected){while(1);}
-     delay(5000);
-     //print the ip addr
-     /*Serial.println("AT+CIFSR");
-     dbgSerial.println("ip address:");
-     while (Serial.available())
-     dbgSerial.write(Serial.read());*/
-     //set the single connection mode
-     Serial.println("AT+CIPMUX=0");
-   }
-   void loop()
-   {
-     String cmd = "AT+CIPSTART=\"TCP\",\"";
-     cmd += DST_IP;
-     cmd += "\",80";
-     Serial.println(cmd);
-     dbgSerial.println(cmd);
-     if(Serial.find("Error")) return;
-     cmd = "GET / HTTP/1.0\r\n\r\n";
-     Serial.print("AT+CIPSEND=");
-     Serial.println(cmd.length());
-     if(Serial.find(">"))
-     {
-       dbgSerial.print(">");
-       }else
-       {
-         Serial.println("AT+CIPCLOSE");
-         dbgSerial.println("connect timeout");
-         delay(1000);
-         return;
-       }
-       Serial.print(cmd);
-       delay(2000);
-       //Serial.find("+IPD");
-       while (Serial.available())
-       {
-         char c = Serial.read();
-         dbgSerial.write(c);
-         if(c=='\r') dbgSerial.print('\n');
-       }
-       dbgSerial.println("====");
-       delay(1000);
-     }
-     boolean connectWiFi()
-     {
-       Serial.println("AT+CWMODE=1");
-       String cmd="AT+CWJAP=\"";
-       cmd+=SSID;
-       cmd+="\",\"";
-       cmd+=PASS;
-       cmd+="\"";
-       dbgSerial.println(cmd);
-       Serial.println(cmd);
-       delay(2000);
-       if(Serial.find("OK"))
-       {
-         dbgSerial.println("OK, Connected to WiFi.");
-         return true;
-         }else
-         {
-           dbgSerial.println("Can not connect to the WiFi.");
-           return false;
-         }
+#include "ESP8266WiFi.h"
+
+const char* ssid = "SKYNET";
+const char* password = "vijay@forever";
+
+int ledPin = 2; // GPIO2
+WiFiServer server(80);
+
+void setup() {
+Serial.begin(115200);
+delay(10);
+
+pinMode(ledPin, OUTPUT);
+digitalWrite(ledPin, LOW);
+
+// Connect to WiFi network
+Serial.println();
+Serial.println();
+Serial.print("Connecting to ");
+Serial.println(ssid);
+
+WiFi.begin(ssid, password);
+
+while (WiFi.status() != WL_CONNECTED) {
+delay(500);
+Serial.print(".");
+}
+Serial.println("");
+Serial.println("WiFi connected");
+
+// Start the server
+server.begin();
+Serial.println("Server started");
+
+// Print the IP address
+Serial.print("Use this URL to connect: ");
+Serial.print("http://");
+Serial.print(WiFi.localIP());
+Serial.println("/");
+
+}
+
+void loop() {
+// Check if a client has connected
+WiFiClient client = server.available();
+if (!client) {
+return;
+}
+
+// Wait until the client sends some data
+Serial.println("new client");
+while(!client.available()){
+delay(1);
+}
+
+// Read the first line of the request
+String request = client.readStringUntil('\r');
+Serial.println(request);
+client.flush();
+
+// Match the request
+
+int value = LOW;
+if (request.indexOf("/LED=ON") != -1) {
+digitalWrite(ledPin, HIGH);
+value = HIGH;
+}
+if (request.indexOf("/LED=OFF") != -1) {
+digitalWrite(ledPin, LOW);
+value = LOW;
+}
+
+// Set ledPin according to the request
+//digitalWrite(ledPin, value);
+
+// Return the response
+client.println("HTTP/1.1 200 OK");
+client.println("Content-Type: text/html");
+client.println(""); // do not forget this one
+client.println("<!DOCTYPE HTML>");
+client.println("<html>");
+
+client.print("Led pin is now: ");
+
+if(value == HIGH) {
+client.print("On");
+} else {
+client.print("Off");
+}
+client.println("<br><br>");
+client.println("Click <a href=\"/LED=ON\">here</a> turn the LED on pin 2 ON<br>");
+client.println("Click <a href=\"/LED=OFF\">here</a> turn the LED on pin 2 OFF<br>");
+client.println("</html>");
+
+delay(1);
+Serial.println("Client disonnected");
+Serial.println("");
+
 }
